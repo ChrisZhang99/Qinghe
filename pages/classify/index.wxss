@@ -1,0 +1,110 @@
+page{
+  background: #f5f5f5;
+}
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #939393;
+}
+.nav_left{
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  background: #f5f5f5;
+  text-align: center;
+}
+.nav_left .nav_left_items{
+  height: 30px;
+  line-height: 30px;
+  padding: 6px 0;
+  border-bottom: 1px solid #dedede;
+  font-size: 14px;
+}
+.nav_left .nav_left_items.active{
+  background: #fff;
+}
+.nav_right{
+  position: absolute;
+  top: 0;
+  right: 0;
+  flex: 1;
+  width: 75%;
+  height: auto;
+  padding: 10px;
+  background: #fff;
+  box-sizing: border-box;
+}
+.nav_right .nav_right_items{
+  float: top;
+  width: 100%;
+  height: 40px;
+  text-align: left;
+}
+
+.nav_right .nav_right_items .item_inside_product{
+  float: left;
+  width: 45%;
+  font-size: 14px;
+  color: black;
+  margin-right: 5px;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.nav_right .nav_right_items .item_inside{
+  float: left;
+  width: 15%;
+  font-size: 14px;
+  color: black;
+  margin-left: 5px;
+  margin-top: 3px;
+  text-align: left;
+}
+
+.nav_right .nav_right_items image{
+  width: 50px;
+  height: 30px;
+}
+.nav_right .nav_right_items text{
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nav_right .nav_right_items .input{
+    float: left;
+    padding-left: 2px;
+    width: 30%;
+    border:  1px solid red;
+}
+
+.nav_right .nav_right_items .input_View{
+  float: left;
+  width: 30%;
+  font-size: 14px;
+  color: black;
+  margin-left: 5px;
+  border:  1px solid red;
+  text-align: left;
+  
+}
+
+.input_x{
+    padding-left: 2px;    
+}
+
+.inputView_x{
+    float: left;
+    width: 30%;
+    border:  1px solid red;
+    border-radius: 1px;
+    margin-left: 2px;
+    margin-right: 2px;
+    font-size: 14px;
+    height: 20px;
+}
