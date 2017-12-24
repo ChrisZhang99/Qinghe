@@ -1,7 +1,8 @@
-/**index.wxss**/
+/**index.wxss
 .container {
   background-color: #F2f2f2;
 }
+**/
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -21,12 +22,18 @@
 .weui_cell{
     position: relative;
     display: flex;
-    padding: 15px;
+    padding: 10px;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
     border-bottom: 1px solid #dadada;
+    font-size: 12px;
 }
+
+.weui_cell.active{
+  background: #fff;
+}
+
 .weui_cell_hd{
   display: inline-block;
   width: 20px;
@@ -34,14 +41,14 @@
 }
 .weui_cell_hd image{
   width: 100%;
-  height: 20px;
+  height: 18px;
   vertical-align: -2px;
 }
 .weui_cell_bd{
   display: inline-block;
 }
 .weui_cell_bd_p{
-  font-size: 14px;
+  font-size: 12px;
   color: #939393;
 }
 .badge{
@@ -66,4 +73,76 @@
   background-image: url(../../images/icon-arrowdown.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+
+page{
+  background: #f5f5f5;
+}
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #939393;
+}
+.nav_left{
+  display: inline-block;
+  width: 30%;
+  height: 100%;
+  background: #f5f5f5;
+  text-align: center;
+}
+.nav_left .nav_left_items{
+  height: 30px;
+  line-height: 30px;
+  padding: 6px 0;
+  border-bottom: 1px solid #dedede;
+  font-size: 14px;
+}
+.nav_left .nav_left_items.active{
+  background: #fff;
+}
+.nav_right{
+  position: absolute;
+  top: 0;
+  right: 0;
+  flex: 1;
+  width: 70%;
+  height: auto;
+  padding: 10px;
+  background: #fff;
+  box-sizing: border-box;
+}
+.nav_right .nav_right_items{
+  float: top;
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.nav_right .nav_right_items .nav_right_items_inside{
+  float: top;
+  width: 100%;
+  height: 25px;
+  text-align: left;
+  font-size: 14px;
+  color: black;
+}
+.nav_right .nav_right_items .nav_right_items_inside .item_inside_product{
+  float: left;
+  width: 30%;
+  font-size: 14px;
+  color: black;
+  margin-right: 5px;
+  text-align: right;
+}
+
+.nav_right .nav_right_items .nav_right_items_inside .item_inside{
+  float: left;
+  width: 15%;
+  font-size: 14px;
+  color: black;
+  margin-left: 5px;
+  margin-top: 3px;
+  text-align: left;
 }

@@ -2,32 +2,16 @@ var app = getApp()
 Page( {
   data: {
     userInfo: {},
-    projectSource: 'https://github.com/liuxuanqiang/wechat-weapp-mall',
-    userListInfo: [ {
+    leftMenus: [ {
+      id:1,
       icon: '../../images/iconfont-dingdan.png',
       text: '我的订单',
       isunread: true,
       unreadNum: 2
-    }, {
-        icon: '../../images/iconfont-card.png',
-        text: '我的代金券',
-        isunread: false,
-        unreadNum: 2
-      }, {
-        icon: '../../images/iconfont-icontuan.png',
-        text: '我的拼团',
-        isunread: true,
-        unreadNum: 1
-      }, {
-        icon: '../../images/iconfont-shouhuodizhi.png',
-        text: '收货地址管理'
-      }, {
-        icon: '../../images/iconfont-kefu.png',
-        text: '联系客服'
-      }, {
-        icon: '../../images/iconfont-help.png',
-        text: '常见问题'
-      }]
+    }],
+    navRightItems: [],
+    curMenuID: 1,
+    curMenuIndex: 0
   },
 
   onLoad: function() {
@@ -39,5 +23,70 @@ Page( {
         userInfo: userInfo
       })
     })
+
+    var url = app.globalData.hostUrl
+    console.log(url);
+    wx.request({
+      url: url + 'PurchaseOrders/GetByOwner',
+      method: 'POST',
+      data: { creator: this.data.userInfo.baseInfo.nickName },
+      dataType: "json",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("hahahahaha");
+        console.log(res); 
+        that.setData({
+          navRightItems: res.data.data
+        });
+        console.log(res.data.data);
+      },
+      fail: function (res) {
+
+        console.log(res);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    })
+  },
+
+  switchRightTab: function (e) {
+    console.log("llllllllllllll")
+    console.log(e)
+    let id = e.currentTarget.dataset.id,
+      index = parseInt(e.currentTarget.dataset.index);
+
+    this.setData({
+      curMenuID: id,
+      curMenuIndex: index
+    })
+    console.log(this.data.curMenuID)
+    var that = this
+    if (this.data.curMenuID == 1)
+    {
+      var url = app.globalData.hostUrl
+      wx.request({
+        url: url + 'PurchaseOrders/GetByOwner',
+        method: 'POST',
+        data: { creator: this.data.userInfo.baseInfo.nickName },
+        //data: { "purchaseItems": JSON.stringify(app.globalData.purchaseItems) },
+        //data: {purchaseItems:purchaseItemList,creator:this.data.userInfo.baseInfo.nickName},
+        dataType: "json",
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {   
+          console.log("hahahahaha");
+          console.log(res);      
+          that.setData({
+            navRightItems: res.data.data
+          });
+          console.log(res.data.data);
+        }
+      })
+    }
+    
   }
 })
