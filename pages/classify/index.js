@@ -42,57 +42,60 @@ Page({
           })
         })
         
-        wx.request({
-          //url: 'http://huanqiuxiaozhen.com/wemall/goodstype/typebrandList',
-          url: 'https://www.snowcrane123.com/categories/all',
-          method: 'GET',
-          data: {},
-          header: {
-              'Accept': 'application/json'
-          },
-          success: function(res) {
-            console.log("**********");
-            console.log(res.data.data);
-              that.setData({
-                curCategoryID: res.data.data[0].ID,
-                curCategoryName: res.data.data[0].Name,
-                navLeftItems: res.data.data
-              })
+    },
 
-              wx.request({
-                url: 'https://www.snowcrane123.com/products/getbycategoryid/' + res.data.data[0].ID,
-                method: 'GET',
-                data: {},
-                header: {
-                  'Accept': 'application/json'
-                },
-                success: function (res) {
-                  var productNumber = null;
-                  var productItems = new Array();
-                  for (var i = 0; i < res.data.data.length; i++) {
-                    for (var j = 0; j < app.globalData.purchaseItems.length; j++) {
-                      if (app.globalData.purchaseItems[j].categoryID == res.data.data[i].CategoryID
-                        && app.globalData.purchaseItems[j].productID == res.data.data[i].ID) {
-                        productNumber = app.globalData.purchaseItems[j].productNumber;
-                        break;
-                      }
-                    }
-                    var purchaseItem = {
-                      ID: res.data.data[i].ID, Name: res.data.data[i].Name,
-                      Price: res.data.data[i].Price, Unit: res.data.data[i].Unit,
-                      CategoryID: res.data.data[i].CategoryID, Category: res.data.data[i].Category,
-                      ProductNumber: productNumber
-                    };
-                    productItems.push(purchaseItem);
+    onShow: function () {
+      var that = this
+      wx.request({
+        url: 'https://www.snowcrane123.com/categories/all',
+        method: 'GET',
+        data: {},
+        header: {
+          'Accept': 'application/json'
+        },
+        success: function (res) {
+          console.log("**********");
+          console.log(res.data.data);
+          that.setData({
+            curCategoryID: res.data.data[0].ID,
+            curCategoryName: res.data.data[0].Name,
+            navLeftItems: res.data.data
+          })
+
+          wx.request({
+            url: 'https://www.snowcrane123.com/products/getbycategoryid/' + res.data.data[0].ID,
+            method: 'GET',
+            data: {},
+            header: {
+              'Accept': 'application/json'
+            },
+            success: function (res) {
+              var productNumber = null;
+              var productItems = new Array();
+              for (var i = 0; i < res.data.data.length; i++) {
+                for (var j = 0; j < app.globalData.purchaseItems.length; j++) {
+                  if (app.globalData.purchaseItems[j].categoryID == res.data.data[i].CategoryID
+                    && app.globalData.purchaseItems[j].productID == res.data.data[i].ID) {
+                    productNumber = app.globalData.purchaseItems[j].productNumber;
+                    break;
                   }
-                  that.setData({
-                    navRightItems: productItems
-                  });
                 }
-              })
+                var purchaseItem = {
+                  ID: res.data.data[i].ID, Name: res.data.data[i].Name,
+                  Price: res.data.data[i].Price, Unit: res.data.data[i].Unit,
+                  CategoryID: res.data.data[i].CategoryID, Category: res.data.data[i].Category,
+                  ProductNumber: productNumber
+                };
+                productItems.push(purchaseItem);
+              }
+              that.setData({
+                navRightItems: productItems
+              });
             }
-        });
-        
+          })
+        }
+      });
+
     },
 
     //事件处理函数

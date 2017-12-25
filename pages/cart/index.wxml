@@ -24,6 +24,6 @@
   
 </view>
 <view class="place_order">
-  <button class='place_order_button' bindtap='placeOrder'>下单</button>
+  <button class='place_order_button' bindtap='placeOrder' disabled='{{purchaseButtonDisabled}}'>下单</button>
   
 </view>

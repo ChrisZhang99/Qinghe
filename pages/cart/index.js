@@ -4,7 +4,8 @@ Page( {
     userInfo: {},
     cartImg: '../../images/cart-null.png',
     tipWords: '购物车空空如也',
-    cartItems: []
+    cartItems: [],
+    purchaseButtonDisabled: false
   },
 
   onLoad: function () {
@@ -23,7 +24,8 @@ Page( {
     var that = this
     
     that.setData({
-      cartItems: app.globalData.purchaseItems
+      cartItems: app.globalData.purchaseItems,
+      purchaseButtonDisabled: (app.globalData.purchaseItems.length == 0)
     });
     console.log(that.data.cartItems);  
   },
@@ -56,6 +58,10 @@ Page( {
       success: function (res) {   
         console.log("res.data");    
         console.log(res.data);
+        app.globalData.purchaseItems.splice(0, app.globalData.purchaseItems.length);
+        that.setData({
+          purchaseButtonDisabled: true
+        });
       }
     })
   }

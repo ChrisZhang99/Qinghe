@@ -23,7 +23,11 @@ Page( {
         userInfo: userInfo
       })
     })
+  },
 
+  onShow: function () {
+    var that = this
+    
     var url = app.globalData.hostUrl
     console.log(url);
     wx.request({
@@ -36,18 +40,11 @@ Page( {
       },
       success: function (res) {
         console.log("hahahahaha");
-        console.log(res); 
+        console.log(res);
         that.setData({
           navRightItems: res.data.data
         });
         console.log(res.data.data);
-      },
-      fail: function (res) {
-
-        console.log(res);
-      },
-      complete: function (res) {
-        console.log(res);
       }
     })
   },
