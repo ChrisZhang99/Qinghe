@@ -11,7 +11,7 @@
     "backgroundTextStyle":"white",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "清河",
-    "navigationBarBackgroundColor": "#292929",
+    "navigationBarBackgroundColor": "#A52A2A",
     "backgroundColor": "#F2f2f2",
     "enablePullDownRefresh": true
   },
@@ -19,7 +19,7 @@
     "color": "#6e6d6b",
     "selectedColor": "#f9f027",
     "borderStyle": "white",
-    "backgroundColor": "#292929",
+    "backgroundColor": "#A52A2A",
     "list": [{
       "pagePath": "pages/classify/index",
       "iconPath": "images/footer-icon-02.png",
