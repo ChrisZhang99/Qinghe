@@ -27,8 +27,7 @@ Page( {
     that.setData({
       cartItems: app.globalData.purchaseItems,
       purchaseButtonDisabled: (app.globalData.purchaseItems.length == 0)
-    });
-    console.log(that.data.cartItems);  
+    }); 
 
     wx.request({
       url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxb7d4a9bfe0803710&secret=d4f58b79a053947ef64b993d256e80fc',
@@ -38,8 +37,6 @@ Page( {
         'Accept': 'application/json'
       },
       success: function (res) {
-        console.log("heheheehehehehe");
-        console.log(res);
         that.setData({
           access_token: res.data.access_token
         });
@@ -49,7 +46,6 @@ Page( {
 
   placeOrder: function (e) {
     var that = this
-    console.log(app.globalData.purchaseItems);  
     var purchaseItemList = {};
 
     for (var i = 0; i < app.globalData.purchaseItems.length; i++) {
@@ -71,8 +67,6 @@ Page( {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {   
-        console.log("res.data");    
-        console.log(res.data);
         app.globalData.purchaseItems.splice(0, app.globalData.purchaseItems.length);
         that.setData({
           purchaseButtonDisabled: true
@@ -86,11 +80,7 @@ Page( {
           res.data.data.PurchaseItems[i].productUnit + "\r\n";
           purchaseLines = purchaseLines + line;
         }  
-        console.log(purchaseLines);
-        console.log("that.data.access_token");
-        console.log(that.data.access_token);
-        console.log("e.detail.formId");
-        console.log(e.detail.formId);
+
         let url = 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' + that.data.access_token;
         let _jsonData = {
           access_token: that.data.access_token,

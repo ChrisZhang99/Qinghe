@@ -2,10 +2,7 @@
   "pages":[
     "pages/classify/index",
     "pages/cart/index",
-    "pages/my/index",
-    "pages/details/index",
-    "pages/brand/index",
-    "pages/list/index"
+    "pages/my/index"
   ],
   "window":{
     "backgroundTextStyle":"white",

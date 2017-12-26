@@ -26,7 +26,6 @@ Page({
           that.setData({
             navRightItems: res.data.data
           });
-          console.log(res.data.data);
         }
       })
     },
@@ -54,8 +53,6 @@ Page({
           'Accept': 'application/json'
         },
         success: function (res) {
-          console.log("**********");
-          console.log(res.data.data);
           that.setData({
             curCategoryID: res.data.data[0].ID,
             curCategoryName: res.data.data[0].Name,

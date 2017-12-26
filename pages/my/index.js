@@ -29,7 +29,6 @@ Page( {
     var that = this
     
     var url = app.globalData.hostUrl
-    console.log(url);
     wx.request({
       url: url + 'PurchaseOrders/GetByOwner',
       method: 'POST',
@@ -39,19 +38,14 @@ Page( {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log("hahahahaha");
-        console.log(res);
         that.setData({
           navRightItems: res.data.data
         });
-        console.log(res.data.data);
       }
     })
   },
 
   switchRightTab: function (e) {
-    console.log("llllllllllllll")
-    console.log(e)
     let id = e.currentTarget.dataset.id,
       index = parseInt(e.currentTarget.dataset.index);
 
@@ -59,7 +53,7 @@ Page( {
       curMenuID: id,
       curMenuIndex: index
     })
-    console.log(this.data.curMenuID)
+
     var that = this
     if (this.data.curMenuID == 1)
     {
@@ -74,13 +68,11 @@ Page( {
         header: {
           'content-type': 'application/x-www-form-urlencoded'
         },
-        success: function (res) {   
-          console.log("hahahahaha");
-          console.log(res);      
+        success: function (res) {        
           that.setData({
             navRightItems: res.data.data
           });
-          console.log(res.data.data);
+
         }
       })
     }
