@@ -31,7 +31,7 @@
     </block>
   </view>
   <view class="nav_right">
-    <view wx:if="{{navRightItems}}">
+    <view wx:if="{{curMenuID == 1}}">
       <block wx:for="{{navRightItems}}">
         <view class="nav_right_items" data-index="{{index}}">
           <view class="nav_right_items_inside">
@@ -56,6 +56,39 @@
         </view>
       </block>
     </view>
-    <view wx:else>暂无数据</view>
+    <view wx:else if="{{curMenuID == 2}}">
+      <view class="nav_right_date_items">     
+        <view class="section_date">  
+          <picker mode="date" value="{{date}}" start="1978-01-01" end="2017-1-23" bindchange="bindStartDateChange">  
+            <view class="picker">  
+              开始时间: {{startDate}}  
+            </view>  
+          </picker>  
+        </view>  
+        <view class="section_time">  
+          <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">  
+            <view class="picker">  
+              {{startTime}}
+            </view>  
+          </picker>  
+        </view>   
+      </view>    
+      <view class="nav_right_date_items">     
+        <view class="section_date">  
+          <picker mode="date" value="{{date}}" start="1978-01-01" end="2017-1-23" bindchange="bindStopDateChange">  
+            <view class="picker">  
+              停止时间: {{stopDate}}  
+            </view>  
+          </picker>  
+        </view>  
+        <view class="section_time">  
+          <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStopTimeChange">  
+            <view class="picker">  
+              {{stopTime}}
+            </view>  
+          </picker>  
+        </view>   
+      </view>     
+    </view>
   </view>
 </view>

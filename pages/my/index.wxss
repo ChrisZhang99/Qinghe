@@ -146,3 +146,25 @@ page{
   margin-top: 3px;
   text-align: left;
 }
+
+.nav_right .nav_right_date_items{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #dedede;
+}
+.nav_right .nav_right_date_items .section_time{
+  float: left;
+  width: 20%;
+  font-size: 13px;
+  color: blue;
+  margin-top: 2px;
+}
+.nav_right .nav_right_date_items .section_date{
+  float: left;
+  width: 70%;
+  font-size: 13px;
+  color: blue;
+}
