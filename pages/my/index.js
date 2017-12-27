@@ -1,6 +1,7 @@
 var app = getApp()
 Page( {
   data: {
+    summaryOrderItems: [],
     userInfo: {},
     leftMenus: [ {
       id:1,
@@ -83,7 +84,24 @@ Page( {
         }
       })
     }
-    
+    else if (this.data.curMenuID == 2) {
+      var url = app.globalData.hostUrl
+      wx.request({
+        url: url + 'PurchaseOrders/GetSummaryByTime',
+        method: 'POST',
+        data: { creator: this.data.userInfo.baseInfo.nickName },
+        dataType: "json",
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          that.setData({
+            summaryOrderItems: res.data.data
+          });
+
+        }
+      })
+    }
   },
 
   //  点击时间组件确定事件  

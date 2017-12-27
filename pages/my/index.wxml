@@ -88,7 +88,29 @@
             </view>  
           </picker>  
         </view>   
-      </view>     
+      </view> 
+
+      <view wx:if="{{summaryOrderItems.length > 0}}">
+        <view class="purchase_orders_container">        
+          <block wx:for="{{summaryOrderItems}}">
+            <view class="summary_order_item" data-index="{{index}}">
+
+              <view class='item_inside_line_name'>
+                {{item.productName}}
+              </view>
+
+              <view class='item_inside_line'>
+                {{item.productNumber}}
+              </view>
+
+              <view class='item_inside_line_unit'>
+                {{item.productUnit}}
+              </view>
+            </view>
+          </block>
+        </view>  
+      </view>  
+
     </view>
   </view>
 </view>

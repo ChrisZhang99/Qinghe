@@ -22,6 +22,8 @@
 .weui_cell{
     position: relative;
     display: flex;
+    float: left;
+    width: 30%;
     padding: 10px;
     -webkit-box-align: center;
     -ms-flex-align: center;
@@ -85,10 +87,13 @@ page{
   background-color: #fff;
   color: #939393;
 }
+
 .nav_left{
-  display: inline-block;
-  width: 30%;
-  height: 100%;
+  
+  width: 100%;
+  float: top;
+  /*height: 100%;
+  display: inline-block;*/
   background: #f5f5f5;
   text-align: center;
 }
@@ -103,11 +108,14 @@ page{
   background: #fff;
 }
 .nav_right{
+  /*
   position: absolute;
   top: 0;
   right: 0;
   flex: 1;
-  width: 70%;
+  */
+  float: top;
+  width: 100%;
   height: auto;
   padding: 10px;
   background: #fff;
@@ -167,4 +175,50 @@ page{
   width: 70%;
   font-size: 13px;
   color: blue;
+}
+
+.purchase_orders_container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #939393;
+}
+
+.purchase_orders_container .summary_order_item{
+  float: top;
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.purchase_orders_container .summary_order_item .item_inside_line{
+  float: left;
+  width: 30%;
+  font-size: 15px;
+  color: black;
+  margin-right: 5px;
+  margin-top: 3px;
+  text-align: center;
+}
+
+.purchase_orders_container .summary_order_item .item_inside_line_name{
+  float: left;
+  width: 40%;
+  font-size: 15px;
+  color: black;
+  margin-right: 5px;
+  margin-top: 3px;
+  text-align: right;
+}
+
+.purchase_orders_container .summary_order_item .item_inside_line_unit{
+  float: left;
+  width: 10%;
+  font-size: 15px;
+  color: black;
+  margin-right: 5px;
+  margin-top: 3px;
+  text-align: right;
 }

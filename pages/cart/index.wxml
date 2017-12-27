@@ -18,10 +18,10 @@
         </view>
       </block>
     </view>
-    <view wx:else>
-      <image src="{{cartImg}}" class="cart-image"/>
-      <view>{{tipWords}}</view>
-    </view>
+  <view wx:else>
+    <image src="{{cartImg}}" class="cart-image"/>
+    <view>{{tipWords}}</view>
+  </view>
   
 </view>
 <view class="place_order">
