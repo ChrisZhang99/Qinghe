@@ -59,7 +59,7 @@
     <view wx:else if="{{curMenuID == 2}}">
       <view class="nav_right_date_items">     
         <view class="section_date">  
-          <picker mode="date" value="{{date}}" start="1978-01-01" end="2017-1-23" bindchange="bindStartDateChange">  
+          <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStartDateChange">  
             <view class="picker">  
               开始时间: {{startDate}}  
             </view>  
@@ -75,7 +75,7 @@
       </view>    
       <view class="nav_right_date_items">     
         <view class="section_date">  
-          <picker mode="date" value="{{date}}" start="1978-01-01" end="2017-1-23" bindchange="bindStopDateChange">  
+          <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStopDateChange">  
             <view class="picker">  
               停止时间: {{stopDate}}  
             </view>  

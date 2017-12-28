@@ -195,12 +195,12 @@ page{
 
 .purchase_orders_container .summary_order_item .item_inside_line{
   float: left;
-  width: 30%;
+  width: 20%;
   font-size: 15px;
   color: black;
   margin-right: 5px;
   margin-top: 3px;
-  text-align: center;
+  text-align: right;
 }
 
 .purchase_orders_container .summary_order_item .item_inside_line_name{
@@ -215,7 +215,7 @@ page{
 
 .purchase_orders_container .summary_order_item .item_inside_line_unit{
   float: left;
-  width: 10%;
+  width: 20%;
   font-size: 15px;
   color: black;
   margin-right: 5px;

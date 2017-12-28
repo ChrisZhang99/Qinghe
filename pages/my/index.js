@@ -53,6 +53,15 @@ Page( {
         });
       }
     })
+
+    var myDate = new Date();
+    this.setData({
+      startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
+      startTime: '00:00',
+      stopDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
+      stopTime: myDate.getHours() + ':' + myDate.getMinutes()
+    })
+    this.getSummaryOrders();
   }, 
 
   getSummaryOrders: function() {
@@ -115,14 +124,7 @@ Page( {
       })
     }
     else if (this.data.curMenuID == 2) {
-      var myDate = new Date();
-      this.setData({
-        startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
-        startTime: '00:00',
-        stopDate: myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate(),
-        stopTime: myDate.getHours() + ':' + myDate.getMinutes()
-      })
-      this.getSummaryOrders();
+      
     }
   },
 
