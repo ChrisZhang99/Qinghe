@@ -96,15 +96,15 @@
             <view class="summary_order_item" data-index="{{index}}">
 
               <view class='item_inside_line_name'>
-                {{item.productName}}
+                {{item.Name}}
               </view>
 
               <view class='item_inside_line'>
-                {{item.productNumber}}
+                {{item.Count}}
               </view>
 
               <view class='item_inside_line_unit'>
-                {{item.productUnit}}
+                {{item.Unit}}
               </view>
             </view>
           </block>

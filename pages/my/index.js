@@ -53,6 +53,36 @@ Page( {
         });
       }
     })
+  }, 
+
+  getSummaryOrders: function() {
+    var that = this
+
+    var url = app.globalData.hostUrl
+    var startTime = this.data.startDate + " " + this.data.startTime;
+    var stopTime = this.data.stopDate + " " + this.data.stopTime;
+
+    wx.request({
+      url: url + 'PurchaseOrders/GetSummaryByTime',
+      method: 'POST',
+      data: { startTime: startTime, stopTime: stopTime },
+      dataType: "json",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        that.setData({
+          summaryOrderItems: res.data.data
+        });
+        console.log(res)
+      }
+      , fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        console.log(res)
+      }
+    })
   },
 
   switchRightTab: function (e) {
@@ -85,22 +115,14 @@ Page( {
       })
     }
     else if (this.data.curMenuID == 2) {
-      var url = app.globalData.hostUrl
-      wx.request({
-        url: url + 'PurchaseOrders/GetSummaryByTime',
-        method: 'POST',
-        data: { creator: this.data.userInfo.baseInfo.nickName },
-        dataType: "json",
-        header: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        success: function (res) {
-          that.setData({
-            summaryOrderItems: res.data.data
-          });
-
-        }
+      var myDate = new Date();
+      this.setData({
+        startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
+        startTime: '00:00',
+        stopDate: myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate(),
+        stopTime: myDate.getHours() + ':' + myDate.getMinutes()
       })
+      this.getSummaryOrders();
     }
   },
 
@@ -109,6 +131,7 @@ Page( {
     this.setData({
       startTime: e.detail.value
     })
+    this.getSummaryOrders();
   },
   //  点击日期组件确定事件  
   bindStartDateChange: function (e) {
@@ -116,12 +139,14 @@ Page( {
     this.setData({
       startDate: e.detail.value
     })
+    this.getSummaryOrders();
   },
   //  点击时间组件确定事件  
   bindStopTimeChange: function (e) {
     this.setData({
       stopTime: e.detail.value
     })
+    this.getSummaryOrders();
   },
   //  点击日期组件确定事件  
   bindStopDateChange: function (e) {
@@ -129,5 +154,6 @@ Page( {
     this.setData({
       stopDate: e.detail.value
     })
+    this.getSummaryOrders();
   }
 })

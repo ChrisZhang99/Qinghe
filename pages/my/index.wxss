@@ -188,7 +188,7 @@ page{
 .purchase_orders_container .summary_order_item{
   float: top;
   width: 100%;
-  border-bottom: 1px solid #dedede;
+  
   margin-top: 5px;
   margin-bottom: 5px;
 }

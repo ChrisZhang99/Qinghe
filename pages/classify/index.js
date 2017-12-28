@@ -30,6 +30,34 @@ Page({
       })
     },
 
+    setProductItems: function(res){
+      var that = this
+      var productNumber = null;
+      var productItems = new Array();
+      for (var i = 0; i < res.data.data.length; i++) {
+        for (var j = 0; j < app.globalData.purchaseItems.length; j++) {
+          if (app.globalData.purchaseItems[j].categoryID == res.data.data[i].CategoryID
+            && app.globalData.purchaseItems[j].productID == res.data.data[i].ID) {
+            productNumber = app.globalData.purchaseItems[j].productNumber;
+            break;
+          }
+          else {
+            productNumber = null;
+          }
+        }
+        var purchaseItem = {
+          ID: res.data.data[i].ID, Name: res.data.data[i].Name,
+          Price: res.data.data[i].Price, Unit: res.data.data[i].Unit,
+          CategoryID: res.data.data[i].CategoryID, Category: res.data.data[i].Category,
+          ProductNumber: productNumber
+        };
+        productItems.push(purchaseItem);
+      }
+      that.setData({
+        navRightItems: productItems
+      });
+    },
+
     onLoad: function() {
 
         var that = this
@@ -67,27 +95,7 @@ Page({
               'Accept': 'application/json'
             },
             success: function (res) {
-              var productNumber = null;
-              var productItems = new Array();
-              for (var i = 0; i < res.data.data.length; i++) {
-                for (var j = 0; j < app.globalData.purchaseItems.length; j++) {
-                  if (app.globalData.purchaseItems[j].categoryID == res.data.data[i].CategoryID
-                    && app.globalData.purchaseItems[j].productID == res.data.data[i].ID) {
-                    productNumber = app.globalData.purchaseItems[j].productNumber;
-                    break;
-                  }
-                }
-                var purchaseItem = {
-                  ID: res.data.data[i].ID, Name: res.data.data[i].Name,
-                  Price: res.data.data[i].Price, Unit: res.data.data[i].Unit,
-                  CategoryID: res.data.data[i].CategoryID, Category: res.data.data[i].Category,
-                  ProductNumber: productNumber
-                };
-                productItems.push(purchaseItem);
-              }
-              that.setData({
-                navRightItems: productItems
-              });
+              that.setProductItems(res);              
             }
           })
         }
@@ -150,33 +158,7 @@ Page({
             'Accept': 'application/json'
           },
           success: function (res) {
-            var productNumber=null;
-            var productItems = new Array();
-            for (var i = 0; i < res.data.data.length; i++) {
-              for (var j = 0; j < app.globalData.purchaseItems.length; j++) {
-                if (app.globalData.purchaseItems[j].categoryID == res.data.data[i].CategoryID
-                  && app.globalData.purchaseItems[j].productID == res.data.data[i].ID) {
-                  productNumber = app.globalData.purchaseItems[j].productNumber;
-                  break;
-                }
-                else
-                {
-                  productNumber = null;
-                }
-              }
-              var purchaseItem = {
-                ID: res.data.data[i].ID, Name: res.data.data[i].Name,
-                Price: res.data.data[i].Price, Unit: res.data.data[i].Unit,
-                CategoryID: res.data.data[i].CategoryID, Category: res.data.data[i].Category,
-                ProductNumber: productNumber
-              };
-              productItems.push(purchaseItem);
-            }
-            console.log(productItems);
-            that.setData({
-              navRightItems: productItems
-            });
-            console.log(res.data.data);
+            that.setProductItems(res);            
           }
         })		    
     },
