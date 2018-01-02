@@ -1,6 +1,8 @@
 var app = getApp()
 Page( {
   data: {
+    storeIndex: 0,
+    stores: ['东晓南老椒', '大石老椒', '钟村老椒', '南浦老椒', '夏滘老椒','书生酒馆'],
     summaryOrderItems: [],
     userInfo: {},
     leftMenus: [ {
@@ -22,6 +24,24 @@ Page( {
     startTime: '12:00',
     stopDate: '2016-11-08',
     stopTime: '12:00'
+  },
+
+  bindStorePickerChange: function (e) {
+    this.setData({
+      storeIndex: e.detail.value
+    })
+  },
+
+  generateText: function (e) {
+    wx.showModal({
+      title: '提示',
+      content: '这是一个模态弹窗',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        }
+      }
+    })
   },
 
   onLoad: function() {

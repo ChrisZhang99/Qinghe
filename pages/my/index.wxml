@@ -89,6 +89,15 @@
           </picker>  
         </view>   
       </view> 
+      <view class="nav_right_date_items">     
+        <view class="section_date">  
+          <picker bindchange="bindStorePickerChange" value="{{storeIndex}}" range="{{stores}}">  
+            <view class="picker">  
+              门店：{{stores[storeIndex]}}  
+            </view>  
+          </picker>    
+        </view>          
+      </view>
 
       <view wx:if="{{summaryOrderItems.length > 0}}">
         <view class="purchase_orders_container">        
@@ -108,9 +117,13 @@
               </view>
             </view>
           </block>
+        </view>
+
+        
+        <view class="generate_text">
+          <button class='generate_text_button' type='default' bindtap='generateText'>生成文本</button> 
         </view>  
       </view>  
-
     </view>
   </view>
 </view>
