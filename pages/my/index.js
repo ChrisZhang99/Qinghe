@@ -1,6 +1,8 @@
 var app = getApp()
 Page( {
   data: {
+    ordersInText: "",
+    showModal: false,
     storeIndex: 0,
     stores: ['东晓南老椒', '大石老椒', '钟村老椒', '南浦老椒', '夏滘老椒','书生酒馆'],
     summaryOrderItems: [],
@@ -33,14 +35,14 @@ Page( {
   },
 
   generateText: function (e) {
-    wx.showModal({
-      title: '提示',
-      content: '这是一个模态弹窗',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        }
-      }
+    var ordersText = "";
+    for (var i = 0; i < this.data.summaryOrderItems.length; i++) {
+      ordersText = ordersText + this.data.summaryOrderItems[i].Name + "\t" + this.data.summaryOrderItems[i].Count + "\t\t" + this.data.summaryOrderItems[i].Unit + "\r\n";
+    }
+
+    this.setData({
+      showModal: true,
+      ordersInText: ordersText
     })
   },
 
@@ -177,5 +179,31 @@ Page( {
       stopDate: e.detail.value
     })
     this.getSummaryOrders();
+  },
+
+  /**
+     * 弹出框蒙层截断touchmove事件
+     */
+  preventTouchMove: function () {
+  },
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function () {
+    this.setData({
+      showModal: false
+    });
+  },
+  /**
+   * 对话框取消按钮点击事件
+   */
+  onCancel: function () {
+    this.hideModal();
+  },
+  /**
+   * 对话框确认按钮点击事件
+   */
+  onConfirm: function () {
+    this.hideModal();
   }
 })
