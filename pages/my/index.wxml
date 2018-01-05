@@ -131,5 +131,7 @@
 <!--弹窗-->
 <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view class="modal-dialog" wx:if="{{showModal}}">
+  <button class='copy_text_button' type='default' bindtap='copyText' open-type="share">复制</button>
+  <button open-type="share"></button>
   <text selectable='true'>{{ordersInText}}</text>
 </view>

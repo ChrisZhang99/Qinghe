@@ -46,6 +46,38 @@ Page( {
     })
   },
 
+  copyText: function (e) {
+    let that = this
+    wx.setClipboardData({
+      data: that.data.ordersInText,
+      success() {
+        console.log('copy success')
+      }
+    })
+    wx.getClipboardData({
+      success(res) {
+        console.log(res.data)
+      }
+    })
+  },
+
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+  
   onLoad: function() {
     var that = this
     //调用应用实例的方法获取全局数据
