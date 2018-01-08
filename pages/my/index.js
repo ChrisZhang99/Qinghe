@@ -32,6 +32,38 @@ Page( {
     this.setData({
       storeIndex: e.detail.value
     })
+    this.getSummaryOrdersByStore();
+  },
+
+  getSummaryOrdersByStore: function () {
+    var that = this
+
+    var url = app.globalData.hostUrl
+    var startTime = this.data.startDate + " " + this.data.startTime;
+    var stopTime = this.data.stopDate + " " + this.data.stopTime;
+    var storeName = that.data.stores[that.data.storeIndex];
+    wx.request({
+      url: url + 'PurchaseOrders/GetSummaryByStoreAndDate',
+      method: 'POST',
+      data: { storeName: storeName, startTime: startTime, stopTime: stopTime },
+      dataType: "json",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log(res)
+        //that.setData({
+        //  summaryOrderItems: res.data.data
+        //});
+        
+      }
+      , fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        console.log(res)
+      }
+    })
   },
 
   generateText: function (e) {
