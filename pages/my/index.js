@@ -4,7 +4,7 @@ Page( {
     ordersInText: "",
     showModal: false,
     storeIndex: 0,
-    stores: ['东晓南老椒', '大石老椒', '钟村老椒', '南浦老椒', '夏滘老椒','书生酒馆'],
+    stores: [],
     summaryOrderItems: [],
     userInfo: {},
     leftMenus: [ {
@@ -67,8 +67,8 @@ Page( {
       console.log(res.target)
     }
     return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123',
+      title: '订单',
+      path: '/page/my/index',
       success: function (res) {
         // 转发成功
       },
@@ -87,6 +87,26 @@ Page( {
         userInfo: userInfo
       })
     })
+
+    wx.request({
+      url: 'https://www.snowcrane123.com/stores/all',
+      method: 'GET',
+      data: {},
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+        var arr=new Array();
+        arr[0]="所有"
+        for (var i = 0; i < res.data.data.length; i++) {
+          arr.push(res.data.data[i].Name);          
+        }
+        console.log(arr)
+        that.setData({
+          stores: arr
+        })
+      }
+    });
   },
 
   onShow: function () {
