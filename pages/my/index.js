@@ -6,6 +6,8 @@ Page( {
     storeIndex: 0,
     stores: [],
     summaryOrderItems: [],
+    summaryStoreOrderItems: [],
+    summaryVendorOrderItems: [],
     userInfo: {},
     leftMenus: [ {
       id:1,
@@ -52,10 +54,10 @@ Page( {
       },
       success: function (res) {
         console.log(res)
-        //that.setData({
-        //  summaryOrderItems: res.data.data
-        //});
-        
+        that.setData({
+          summaryStoreOrderItems: res.data.data
+        });
+        console.log(that.data.summaryStoreOrderItems)
       }
       , fail: function (res) {
         console.log(res)
