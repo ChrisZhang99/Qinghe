@@ -129,8 +129,12 @@
         <view class="purchase_orders_container">        
           <block wx:for="{{summaryStoreOrderItems}}">
             <view class="summary_store_order_item" data-index="{{index}}">
-              <view class='store_name'>{{item.StoreName}}</view>
-
+              <view class='store_name'>
+                <view class='label'>{{item.StoreName}}</view>
+                <view class='text_button'>
+                  <button class='gen_text_button' type='default' bindtap='generateText'>生成文本</button>
+                </view>
+              </view>
               <block wx:for="{{item.CategoryOrders}}">
                 <view class="category_order_item" data-index="{{index}}">
                   <view class='category_name'>{{item.CategoryName}}</view>
@@ -166,7 +170,7 @@
                     </view>
                   </block>
 
-                  <view class='category_amount'>类合计：</view>
+                  <view class='category_amount'>合计：</view>
                 </view>
               </block>
 

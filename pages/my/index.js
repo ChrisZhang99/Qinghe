@@ -19,7 +19,12 @@ Page( {
       {
         id: 2,
         icon: '../../images/purchase-orders.png',
-        text: '订单查询'
+        text: '门店订单'
+      },
+      {
+        id: 3,
+        icon: '../../images/purchase-orders.png',
+        text: '供货商订单'
       }],
     navRightItems: [],
     curMenuID: 1,
@@ -169,7 +174,8 @@ Page( {
       stopDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
       stopTime: myDate.getHours() + ':' + myDate.getMinutes()
     })
-    this.getSummaryOrders();
+    this.getSummaryOrdersByStore();
+    //this.getSummaryOrders();
   }, 
 
   getSummaryOrders: function() {
@@ -241,7 +247,8 @@ Page( {
     this.setData({
       startTime: e.detail.value
     })
-    this.getSummaryOrders();
+    //this.getSummaryOrders();
+    this.getSummaryOrdersByStore();
   },
   //  点击日期组件确定事件  
   bindStartDateChange: function (e) {
@@ -249,14 +256,16 @@ Page( {
     this.setData({
       startDate: e.detail.value
     })
-    this.getSummaryOrders();
+    //this.getSummaryOrders();
+    this.getSummaryOrdersByStore();
   },
   //  点击时间组件确定事件  
   bindStopTimeChange: function (e) {
     this.setData({
       stopTime: e.detail.value
     })
-    this.getSummaryOrders();
+    //this.getSummaryOrders();
+    this.getSummaryOrdersByStore();
   },
   //  点击日期组件确定事件  
   bindStopDateChange: function (e) {
@@ -264,7 +273,8 @@ Page( {
     this.setData({
       stopDate: e.detail.value
     })
-    this.getSummaryOrders();
+    //this.getSummaryOrders();
+    this.getSummaryOrdersByStore();
   },
 
   /**
