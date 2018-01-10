@@ -2,7 +2,8 @@
   "pages":[
     "pages/classify/index",
     "pages/cart/index",
-    "pages/my/index"
+    "pages/my/index",
+    "pages/management/index"
   ],
   "window":{
     "backgroundTextStyle":"white",
@@ -13,25 +14,31 @@
     "enablePullDownRefresh": true
   },
   "tabBar": {
-    "color": "#6e6d6b",
-    "selectedColor": "#f9f027",
+    "color": "#858585",
+    "selectedColor": "#008842",
+    "backgroundColor": "#ffffff",
     "borderStyle": "white",
-    "backgroundColor": "#A52A2A",
     "list": [{
       "pagePath": "pages/classify/index",
-      "iconPath": "images/footer-icon-02.png",
-      "selectedIconPath": "images/footer-icon-02-active.png",
+      "iconPath": "images/btn-tabs_03.png",
+      "selectedIconPath": "images/btn-tabs_08.png",
       "text": "分类"
     }, {
       "pagePath": "pages/cart/index",
-      "iconPath": "images/footer-icon-03.png",
-      "selectedIconPath": "images/footer-icon-03-active.png",
+      "iconPath": "images/btn-tabs_05.png",
+      "selectedIconPath": "images/btn-tabs_09.png",
       "text": "购物车"
     }, {
       "pagePath": "pages/my/index",
-      "iconPath": "images/footer-icon-04.png",
-      "selectedIconPath": "images/footer-icon-04-active.png",
+      "iconPath": "images/btn-tabs_06.png",
+      "selectedIconPath": "images/btn-tabs_10.png",
       "text": "我的"
+    },
+    {
+      "pagePath": "pages/management/index",
+      "iconPath": "images/btn-tabs_01.png",
+      "selectedIconPath": "images/btn-tabs_07.png",
+      "text": "后台管理"
     }]
   },
   "debug": true
