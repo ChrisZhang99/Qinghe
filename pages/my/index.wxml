@@ -132,7 +132,7 @@
               <view class='store_name'>
                 <view class='label'>{{item.StoreName}}</view>
                 <view class='text_button'>
-                  <button class='gen_text_button' type='default' bindtap='generateText'>生成文本</button>
+                  <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByStore'>生成文本</button>
                 </view>
               </view>
               <block wx:for="{{item.CategoryOrders}}">
@@ -174,11 +174,11 @@
                 </view>
               </block>
 
-              <view class='category_amount'>门店合计：</view>
+              <view class='store_amount'>当前门店合计：</view>
             </view>
           </block>
 
-          <view class='all_amount'>总合计：</view>
+          <view class='all_amount'>门店总合计：</view>
         </view>
 
         

@@ -73,11 +73,45 @@ Page( {
     })
   },
 
-  generateText: function (e) {
-    var ordersText = "";
-    for (var i = 0; i < this.data.summaryOrderItems.length; i++) {
-      ordersText = ordersText + this.data.summaryOrderItems[i].Name + "\t" + this.data.summaryOrderItems[i].Count + "\t\t" + this.data.summaryOrderItems[i].Unit + "\r\n";
+  generateTextByStore: function (e) {
+    console.log("eeeeeee");
+    console.log(e);
+    let index = e.currentTarget.dataset.id;
+    var ordersText = "开始时间：" + this.data.startDate + " " + this.data.startTime + "\r\n" + "停止时间：" + this.data.stopDate + " " + this.data.stopTime + "\r\n"
+      + "门店：" + this.data.summaryStoreOrderItems[index].StoreName + "\r\n";
+    for (var i = 0; i < this.data.summaryStoreOrderItems[index].CategoryOrders.length; i++) {
+      ordersText += "种类：" + this.data.summaryStoreOrderItems[index].CategoryOrders[i].CategoryName + "\r\n";
+      for (var j = 0; j < this.data.summaryStoreOrderItems[index].CategoryOrders[i].OrderDetails.length; j++) {
+        ordersText += this.data.summaryStoreOrderItems[index].CategoryOrders[i].OrderDetails[j].ProductName + "\t" + this.data.summaryStoreOrderItems[index].CategoryOrders[i].OrderDetails[j].ProductCount + "\t" + 
+          this.data.summaryStoreOrderItems[index].CategoryOrders[i].OrderDetails[j].ProductUnit + "\t" +
+          "单价：" + this.data.summaryStoreOrderItems[index].CategoryOrders[i].OrderDetails[j].ProductPrice + "\t" +
+          "合计：" + this.data.summaryStoreOrderItems[index].CategoryOrders[i].OrderDetails[j].ProductAmount + "\r\n";
+      }     
     }
+
+    this.setData({
+      showModal: true,
+      ordersInText: ordersText
+    })
+  },
+
+  generateText: function (e) {
+    var ordersText = "开始时间：" + this.data.startDate + " " + this.data.startTime + "\r\n" + "停止时间：" + this.data.stopDate + " " + this.data.stopTime + "\r\n";
+    console.log("this.data.summaryStoreOrderItems")
+    console.log(this.data.summaryStoreOrderItems)
+    for (var m = 0; m < this.data.summaryStoreOrderItems.length; m++) {
+      ordersText += "门店：" + this.data.summaryStoreOrderItems[m].StoreName + "\r\n";
+      for (var i = 0; i < this.data.summaryStoreOrderItems[m].CategoryOrders.length; i++) {
+        ordersText += "种类：" + this.data.summaryStoreOrderItems[m].CategoryOrders[i].CategoryName + "\r\n";
+        for (var j = 0; j < this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails.length; j++) {
+          ordersText += this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductName + "\t" + this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductCount + "\t" +
+            this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductUnit + "\t" +
+            "单价：" + this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductPrice + "\t" +
+            "合计：" + this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductAmount + "\r\n";
+        }
+      }
+    }
+    
 
     this.setData({
       showModal: true,
