@@ -97,8 +97,6 @@ Page( {
 
   generateText: function (e) {
     var ordersText = "开始时间：" + this.data.startDate + " " + this.data.startTime + "\r\n" + "停止时间：" + this.data.stopDate + " " + this.data.stopTime + "\r\n";
-    console.log("this.data.summaryStoreOrderItems")
-    console.log(this.data.summaryStoreOrderItems)
     for (var m = 0; m < this.data.summaryStoreOrderItems.length; m++) {
       ordersText += "门店：" + this.data.summaryStoreOrderItems[m].StoreName + "\r\n";
       for (var i = 0; i < this.data.summaryStoreOrderItems[m].CategoryOrders.length; i++) {
