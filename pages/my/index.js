@@ -5,6 +5,9 @@ Page( {
     showModal: false,
     storeIndex: 0,
     stores: [],
+    vendorIndex: 0,
+    vendors: [],
+    vendorIDs: [],
     summaryOrderItems: [],
     summaryStoreOrderItems: [],
     summaryVendorOrderItems: [],
@@ -23,7 +26,7 @@ Page( {
       },
       {
         id: 3,
-        icon: '../../images/purchase-orders.png',
+        icon: '../../images/iconfont-tuihuo.png',
         text: '供货商订单'
       }],
     navRightItems: [],
@@ -40,6 +43,13 @@ Page( {
       storeIndex: e.detail.value
     })
     this.getSummaryOrdersByStore();
+  },
+
+  bindVendorPickerChange: function (e) {
+    this.setData({
+      vendorIndex: e.detail.value
+    })
+    this.getSummaryOrdersByVendor();
   },
 
   getSummaryOrdersByStore: function () {
@@ -63,6 +73,38 @@ Page( {
           summaryStoreOrderItems: res.data.data
         });
         console.log(that.data.summaryStoreOrderItems)
+      }
+      , fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        console.log(res)
+      }
+    })
+  },
+
+  getSummaryOrdersByVendor: function () {
+    var that = this
+
+    var url = app.globalData.hostUrl
+    var startTime = this.data.startDate + " " + this.data.startTime;
+    var stopTime = this.data.stopDate + " " + this.data.stopTime;
+    var vendorID = that.data.vendorIDs[that.data.vendorIndex];
+    wx.request({
+      url: url + 'PurchaseOrders/GetSummaryByVendorAndDate',
+      method: 'POST',
+      data: { vendorID: vendorID, startTime: startTime, stopTime: stopTime },
+      dataType: "json",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          summaryVendorOrderItems: res.data.data
+        });
+        console.log("that.data.summaryVendorOrderItems")
+        console.log(that.data.summaryVendorOrderItems)
       }
       , fail: function (res) {
         console.log(res)
@@ -167,14 +209,38 @@ Page( {
         'Accept': 'application/json'
       },
       success: function (res) {
-        var arr=new Array();
-        arr[0]="所有"
+        var arrStores=new Array();
+        arrStores[0]="所有"
         for (var i = 0; i < res.data.data.length; i++) {
-          arr.push(res.data.data[i].Name);          
+          arrStores.push(res.data.data[i].Name);          
         }
-        console.log(arr)
+        console.log(arrStores)
         that.setData({
-          stores: arr
+          stores: arrStores
+        })
+      }
+    });
+
+    wx.request({
+      url: 'https://www.snowcrane123.com/categories/AllCategoryVendors',
+      method: 'GET',
+      data: {},
+      header: {
+        'Accept': 'application/json'
+      },
+      success: function (res) {
+        var arrVendors = new Array();
+        var arrVendorIDs = new Array();
+        arrVendors[0] = "所有"
+        arrVendorIDs[0]=-1
+        for (var i = 0; i < res.data.data.length; i++) {
+          arrVendors.push(res.data.data[i].VendorName);
+          arrVendorIDs.push(res.data.data[i].VendorID);
+        }
+        console.log(arrVendors)
+        that.setData({
+          vendors: arrVendors,
+          vendorIDs: arrVendorIDs
         })
       }
     });
@@ -201,12 +267,18 @@ Page( {
 
     var myDate = new Date();
     this.setData({
-      startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
-      startTime: '00:00',
+      startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + (myDate.getDate()-1),
+      startTime: '16:00',
       stopDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
       stopTime: myDate.getHours() + ':' + myDate.getMinutes()
     })
-    this.getSummaryOrdersByStore();
+    if (this.data.curMenuID==2){
+      this.getSummaryOrdersByStore();
+    }
+    if (this.data.curMenuID == 3) {
+      this.getSummaryOrdersByVendor();
+    }
+   
     //this.getSummaryOrders();
   }, 
 
@@ -270,7 +342,10 @@ Page( {
       })
     }
     else if (this.data.curMenuID == 2) {
-      
+      this.getSummaryOrdersByStore();
+    }
+    else if (this.data.curMenuID == 3) {
+      this.getSummaryOrdersByVendor();
     }
   },
 
@@ -280,7 +355,12 @@ Page( {
       startTime: e.detail.value
     })
     //this.getSummaryOrders();
-    this.getSummaryOrdersByStore();
+    if (this.data.curMenuID == 2) {
+      this.getSummaryOrdersByStore();
+    }
+    if (this.data.curMenuID == 3) {
+      this.getSummaryOrdersByVendor();
+    }
   },
   //  点击日期组件确定事件  
   bindStartDateChange: function (e) {
@@ -289,7 +369,12 @@ Page( {
       startDate: e.detail.value
     })
     //this.getSummaryOrders();
-    this.getSummaryOrdersByStore();
+    if (this.data.curMenuID == 2) {
+      this.getSummaryOrdersByStore();
+    }
+    if (this.data.curMenuID == 3) {
+      this.getSummaryOrdersByVendor();
+    }
   },
   //  点击时间组件确定事件  
   bindStopTimeChange: function (e) {
@@ -297,7 +382,12 @@ Page( {
       stopTime: e.detail.value
     })
     //this.getSummaryOrders();
-    this.getSummaryOrdersByStore();
+    if (this.data.curMenuID == 2) {
+      this.getSummaryOrdersByStore();
+    }
+    if (this.data.curMenuID == 3) {
+      this.getSummaryOrdersByVendor();
+    }
   },
   //  点击日期组件确定事件  
   bindStopDateChange: function (e) {
@@ -306,7 +396,12 @@ Page( {
       stopDate: e.detail.value
     })
     //this.getSummaryOrders();
-    this.getSummaryOrdersByStore();
+    if (this.data.curMenuID == 2) {
+      this.getSummaryOrdersByStore();
+    }
+    if (this.data.curMenuID == 3) {
+      this.getSummaryOrdersByVendor();
+    }
   },
 
   /**
