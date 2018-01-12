@@ -186,8 +186,8 @@ Page( {
             "单价：" + this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductPrice + "\t" +
             "合计：" + this.data.summaryStoreOrderItems[m].CategoryOrders[i].OrderDetails[j].ProductAmount + "\r\n";
         }
-        ordersText += this.data.summaryStoreOrderItems[index].CategoryOrders[i].CategoryName + "合计：" +
-          this.data.summaryStoreOrderItems[index].CategoryOrders[i].CategoryAmount + "\r\n";
+        ordersText += this.data.summaryStoreOrderItems[m].CategoryOrders[i].CategoryName + "合计：" +
+          this.data.summaryStoreOrderItems[m].CategoryOrders[i].CategoryAmount + "\r\n";
       }
       
       ordersText += "当前门店总计：" + this.data.summaryStoreOrderItems[m].StoreAmount + "\r\n";
