@@ -123,20 +123,20 @@
                     </view>
                   </block>
 
-                  <view class='category_amount'>合计：</view>
+                  <view class='category_amount'>合计：{{item.CategoryAmount}}</view>
                 </view>
               </block>
 
-              <view class='store_amount'>当前门店合计：</view>
+              <view class='store_amount'>当前门店总计：{{item.StoreAmount}}</view>
             </view>
           </block>
 
-          <view class='all_amount'>门店总合计：</view>
+          <view class='all_amount'>所有门店总计：</view>
         </view>
 
         
         <view class="generate_text">
-          <button class='generate_text_button' type='default' bindtap='generateText'>生成文本</button> 
+          <button class='generate_text_button' type='default' bindtap='generateAllStoreOrderText'>生成文本</button> 
         </view>  
       </view>
     </view>
@@ -190,58 +190,62 @@
               <view class='store_name'>
                 <view class='label'>{{item.VendorName}}</view>
                 <view class='text_button'>
-                  <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByStore'>生成文本</button>
+                  <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByVendor'>生成文本</button>
                 </view>
               </view>
               <block wx:for="{{item.CategoryOrders}}">
                 <view class="category_order_item" data-index="{{index}}">
                   <view class='category_name'>{{item.CategoryName}}</view>
-                  <view class="headers">
-                    <view class="header_name">名称</view>
-                    <view class="header_count">数量</view>
-                    <view class="header_unit">单位</view>
-                    <view class="header_price">单价</view>
-                    <view class="header_amount">金额</view>
-                  </view>
-                  <block wx:for="{{item.OrderDetails}}">
-                    <view class="detail_order_item" data-index="{{index}}">
-
-                      <view class='column_name'>
-                        {{item.ProductName}}
-                      </view>
-
-                      <view class='column_count'>
-                        {{item.ProductCount}}
-                      </view>
-
-                      <view class='column_unit'>
-                        {{item.ProductUnit}}
-                      </view>
-
-                      <view class='column_price'>
-                        {{item.ProductPrice}}
-                      </view>
-
-                      <view class='column_amount'>
-                        {{item.ProductAmount}}
-                      </view>
+                  <block wx:for="{{item.StoreOrders}}">
+                    <view class='category_name'>{{item.StoreName}}</view>
+                    <view class="headers">
+                      <view class="header_name">名称</view>
+                      <view class="header_count">数量</view>
+                      <view class="header_unit">单位</view>
+                      <view class="header_price">单价</view>
+                      <view class="header_amount">金额</view>
                     </view>
-                  </block>
+                    <block wx:for="{{item.OrderDetails}}">
+                      <view class="detail_order_item" data-index="{{index}}">
 
-                  <view class='category_amount'>合计：</view>
+                        <view class='column_name'>
+                          {{item.ProductName}}
+                        </view>
+
+                        <view class='column_count'>
+                          {{item.ProductCount}}
+                        </view>
+
+                        <view class='column_unit'>
+                          {{item.ProductUnit}}
+                        </view>
+
+                        <view class='column_price'>
+                          {{item.ProductPrice}}
+                        </view>
+
+                        <view class='column_amount'>
+                          {{item.ProductAmount}}
+                        </view>
+                      </view>
+                    </block>
+                    <view class='category_amount'>合计：{{item.StoreAmount}}</view>
+                  </block>                 
+
+                  <view class='category_amount'>{{item.CategoryName}}合计：{{item.CategoryAmount}}</view>
                 </view>
               </block>
 
-              <view class='store_amount'>当前门店合计：</view>
+              <view class='store_amount'>当前供货商合计：{{item.VendorAmount}}</view>
             </view>
           </block>
 
-          <view class='all_amount'>门店总合计：</view>
+          <view class='all_amount'>所有供货商总计：</view>
         </view>
 
         
         <view class="generate_text">
-          <button class='generate_text_button' type='default' bindtap='generateText'>生成文本</button> 
+          <button class='generate_text_button' type='default' bindtap='generateAllVendorOrderText'>生成文本</button> 
         </view>  
       </view>
     </view>
