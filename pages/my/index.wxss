@@ -234,10 +234,22 @@ page{
 }
 .purchase_orders_container .summary_store_order_item .category_order_item .category_name{
   float: top;
+  width: 50%;
+  height: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #A52A2A;
+  margin-top: 2px;
+  margin-bottom: 2px;
+
+  align-content: left;
+}
+.purchase_orders_container .summary_store_order_item .category_order_item .category_store_name{
+  float: top;
   width: 100%;
   height: 20px;
   font-size: 13px;
-  color: #330033;
+  color: purple;
   margin-top: 2px;
   margin-bottom: 2px;
 
@@ -280,7 +292,7 @@ page{
   float: top;
   width: 100%;
   height: 20px;
-  color: #A52A2A;
+  color: #330033;
   font-size: 13px;
   margin-top: 2px;
   margin-bottom: 2px;

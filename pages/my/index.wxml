@@ -195,9 +195,14 @@
               </view>
               <block wx:for="{{item.CategoryOrders}}">
                 <view class="category_order_item" data-index="{{index}}">
+
                   <view class='category_name'>{{item.CategoryName}}</view>
+                  <view class='text_button'>
+                    <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByCategory'>生成文本</button>
+                  </view>
+
                   <block wx:for="{{item.StoreOrders}}">
-                    <view class='category_name'>{{item.StoreName}}</view>
+                    <view class='category_store_name'>{{item.StoreName}}</view>
                     <view class="headers">
                       <view class="header_name">名称</view>
                       <view class="header_count">数量</view>
