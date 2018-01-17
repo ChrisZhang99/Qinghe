@@ -1,4 +1,5 @@
 <view class="container">
+  <web-view src="https://www.snowcrane123.com/stores"></web-view>
   <view class="nav_left">
     <block wx:for="{{navLeftItems}}">
       <view class="nav_left_items {{curCategoryID == item.ID ? 'active' : ''}}" bindtap="switchRightTab" data-index="{{index}}" data-id="{{item.ID}}" data-name="{{item.Name}}">{{item.Name}}</view>
