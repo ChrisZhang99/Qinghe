@@ -10,7 +10,7 @@
     </block>
   </view>
   <view class="nav_right">
-    <view wx:if="{{curMenuID == 1}}">
+    <view wx:if="{{curMenuID == 3}}">
       <block wx:for="{{navRightItems}}">
         <view class="nav_right_items" data-index="{{index}}">
           <view class="nav_right_items_inside">
@@ -140,7 +140,7 @@
         </view>  
       </view>
     </view>
-    <view wx:if="{{curMenuID == 3}}">
+    <view wx:if="{{curMenuID == 1}}">
       <view class="nav_right_date_items">     
         <view class="section_date">  
           <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStartDateChange">  
@@ -197,8 +197,8 @@
                 <view class="category_order_item" data-index="{{index}}">
 
                   <view class='category_name'>{{item.CategoryName}}</view>
-                  <view class='text_button'>
-                    <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByCategory'>生成文本</button>
+                  <view class='generate_text_view'>
+                    <button class='gen_text_button_new' data-id="{{index}}" type='default' bindtap='generateTextByCategory'>生成文本</button>
                   </view>
 
                   <block wx:for="{{item.StoreOrders}}">

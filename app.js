@@ -38,13 +38,16 @@ App({
               that.globalData.userInfo.session_key = res_openid.data.data.session_key
               //obj = JSON.parse(obj)
               console.log(res_openid.data.data)
+              
             },
             complete: function (res_openid) {
               console.log("结果：" + JSON.stringify(res_openid))
             }
           })  
           wx.getUserInfo({
+
             success: function (res_user) {
+              console.log("res_user.userInfo")
               that.globalData.userInfo.baseInfo = res_user.userInfo
               //typeof cb == "function" && cb(that.globalData.userInfo)
             }

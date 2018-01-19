@@ -204,7 +204,7 @@ page{
   height: 20px;
   font-size: 13px;
   color: #330033;
-  margin-top: 2px;
+  margin-top: 10px;
   margin-bottom: 2px;
   text-align: center;
 }
@@ -212,12 +212,13 @@ page{
 .purchase_orders_container .summary_store_order_item .store_name .label{
   float: left;
   width: 50%;
-  text-align: right;
+  text-align: left;
 }
 .purchase_orders_container .summary_store_order_item .store_name .text_button{
   float: left;
   width: 50%;
   text-align: right;
+  visibility: hidden;
 }
 .purchase_orders_container .summary_store_order_item .store_name .text_button .gen_text_button{
   width: 70px;
@@ -257,7 +258,7 @@ page{
 }
 .purchase_orders_container .summary_store_order_item .category_order_item .category_amount{
   float: top;
-  width: 78%;
+  width: 80%;
   height: 20px;
   font-size: 13px;
   color: #330033;
@@ -268,7 +269,7 @@ page{
 }
 .purchase_orders_container .summary_store_order_item .store_amount{
   float: top;
-  width: 78%;
+  width: 80%;
   height: 20px;
   font-size: 13px;
   color: #330033;
@@ -397,6 +398,7 @@ page{
   height: 25px;
   text-align: center;
   background-color: transparent;
+  visibility: hidden;
 }
 .generate_text_button{
   width: 70px;
@@ -406,6 +408,7 @@ page{
   float: right;
   margin-right: 20px;
   margin-bottom: 5px;
+  visibility: hidden;
 }
 
 .copy_text_button{
@@ -501,5 +504,17 @@ input-holder {
 .btn-confirm {
   width: 50%;
   color: #ec5300;
+  text-align: center;
+}
+
+.generate_text_view{
+  width: 100%;
+  text-align: right;
+
+}
+.gen_text_button_new{
+  width: 100%;
+  height: 35px;
+  font-size: 15px;
   text-align: center;
 }

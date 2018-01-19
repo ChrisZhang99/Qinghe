@@ -30,7 +30,7 @@ Page( {
     }); 
 
     wx.request({
-      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxb7d4a9bfe0803710&secret=d4f58b79a053947ef64b993d256e80fc',
+      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxfae3ca3c5e8a9bd9&secret=563116f55cb65e769a5b23b26b8270a2',
       method: 'get',
       data: { },
       header: {
@@ -85,7 +85,7 @@ Page( {
         let _jsonData = {
           access_token: that.data.access_token,
           touser: app.globalData.userInfo.openid,
-          template_id: 'gQiFCEFO-hR1Avof0joZQL7wdlxAJOFCmqToMJSZSWM',
+          template_id: 'TSraOn07HldeK1mDTjK0vMFOu3ZpIqb8gsqZZs_O8qY',
           form_id: e.detail.formId,
           page: "pages/my/index",
           data: {

@@ -14,8 +14,8 @@ Page( {
     userInfo: {},
     leftMenus: [ {
       id:1,
-      icon: '../../images/iconfont-dingdan.png',
-      text: '我的订单',
+      icon: '../../images/iconfont-tuihuo.png',
+      text: '供货商订单', 
       isunread: true,
       unreadNum: 2
     },
@@ -26,8 +26,8 @@ Page( {
       },
       {
         id: 3,
-        icon: '../../images/iconfont-tuihuo.png',
-        text: '供货商订单'
+        icon: '../../images/iconfont-dingdan.png',
+        text: '我的订单'
       }],
     navRightItems: [],
     curMenuID: 1,
@@ -336,14 +336,14 @@ Page( {
     var myDate = new Date();
     this.setData({
       startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + (myDate.getDate()-1),
-      startTime: '16:00',
+      startTime: '12:00',
       stopDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
-      stopTime: myDate.getHours() + ':' + myDate.getMinutes()
+      stopTime: myDate.getHours() + ':' + (myDate.getMinutes()+2)
     })
     if (this.data.curMenuID==2){
       this.getSummaryOrdersByStore();
     }
-    if (this.data.curMenuID == 3) {
+    if (this.data.curMenuID == 1) {
       this.getSummaryOrdersByVendor();
     }
    
@@ -390,7 +390,7 @@ Page( {
     })
 
     var that = this
-    if (this.data.curMenuID == 1)
+    if (this.data.curMenuID == 3)
     {
       var url = app.globalData.hostUrl
       wx.request({
@@ -412,7 +412,7 @@ Page( {
     else if (this.data.curMenuID == 2) {
       this.getSummaryOrdersByStore();
     }
-    else if (this.data.curMenuID == 3) {
+    else if (this.data.curMenuID == 1) {
       this.getSummaryOrdersByVendor();
     }
   },
@@ -426,7 +426,7 @@ Page( {
     if (this.data.curMenuID == 2) {
       this.getSummaryOrdersByStore();
     }
-    if (this.data.curMenuID == 3) {
+    if (this.data.curMenuID == 1) {
       this.getSummaryOrdersByVendor();
     }
   },
@@ -440,7 +440,7 @@ Page( {
     if (this.data.curMenuID == 2) {
       this.getSummaryOrdersByStore();
     }
-    if (this.data.curMenuID == 3) {
+    if (this.data.curMenuID == 1) {
       this.getSummaryOrdersByVendor();
     }
   },
@@ -453,7 +453,7 @@ Page( {
     if (this.data.curMenuID == 2) {
       this.getSummaryOrdersByStore();
     }
-    if (this.data.curMenuID == 3) {
+    if (this.data.curMenuID == 1) {
       this.getSummaryOrdersByVendor();
     }
   },
@@ -467,7 +467,7 @@ Page( {
     if (this.data.curMenuID == 2) {
       this.getSummaryOrdersByStore();
     }
-    if (this.data.curMenuID == 3) {
+    if (this.data.curMenuID == 1) {
       this.getSummaryOrdersByVendor();
     }
   },
