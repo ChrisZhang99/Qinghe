@@ -198,7 +198,7 @@
 
                   <view class='category_name'>{{item.CategoryName}}</view>
                   <view class='generate_text_view'>
-                    <button class='gen_text_button_new' data-id="{{index}}" type='default' bindtap='generateTextByCategory'>生成文本</button>
+                    <button class='gen_text_button_new' data-id="{{index}}" type='default' data-item="{{item}}" bindtap='generateTextByCategory'>生成文本</button>
                   </view>
 
                   <block wx:for="{{item.StoreOrders}}">
@@ -245,7 +245,7 @@
             </view>
           </block>
 
-          <view class='all_amount'>所有供货商总计：</view>
+          <view class='all_amount'>所有供货商总计：{{sumVendorOrders}}</view>
         </view>
 
         
@@ -261,5 +261,6 @@
 <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view class="modal-dialog" wx:if="{{showModal}}">
   <button class='copy_text_button' type='default' bindtap='copyText' open-type="share">复制</button>
+  <view class="new_line"></view>
   <text selectable='true'>{{ordersInText}}</text>
 </view>

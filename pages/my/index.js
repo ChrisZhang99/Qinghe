@@ -35,7 +35,8 @@ Page( {
     startDate: '2016-11-08',
     startTime: '12:00',
     stopDate: '2016-11-08',
-    stopTime: '12:00'
+    stopTime: '12:00',
+    sumVendorOrders: 0
   },
 
   bindStorePickerChange: function (e) {
@@ -90,6 +91,10 @@ Page( {
     var startTime = this.data.startDate + " " + this.data.startTime;
     var stopTime = this.data.stopDate + " " + this.data.stopTime;
     var vendorID = that.data.vendorIDs[that.data.vendorIndex];
+    console.log("hhhhhhhhhhhh")
+    console.log(startTime)
+    console.log(stopTime)
+    console.log(that.data.vendorIDs)
     wx.request({
       url: url + 'PurchaseOrders/GetSummaryByVendorAndDate',
       method: 'POST',
@@ -100,11 +105,20 @@ Page( {
       },
       success: function (res) {
         console.log(res)
+        var sumVendorOrders = 0;
+        for (var i= 0; i < res.data.data.length; i++){
+          console.log(res.data.data[i].VendorAmount)
+          sumVendorOrders += res.data.data[i].VendorAmount;
+        }
+        console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnn")
+        console.log(sumVendorOrders)
         that.setData({
-          summaryVendorOrderItems: res.data.data
+          summaryVendorOrderItems: res.data.data,
+          sumVendorOrders: sumVendorOrders
         });
         console.log("that.data.summaryVendorOrderItems")
         console.log(that.data.summaryVendorOrderItems)
+        
       }
       , fail: function (res) {
         console.log(res)
@@ -134,6 +148,36 @@ Page( {
       this.data.summaryStoreOrderItems[index].CategoryOrders[i].CategoryAmount + "\r\n";
     }
     ordersText += "当前门店总计计：" + this.data.summaryStoreOrderItems[index].StoreAmount + "\r\n";
+
+    this.setData({
+      showModal: true,
+      ordersInText: ordersText
+    })
+  },
+
+  generateTextByCategory: function (e) {
+    console.log("ccccccccccccccccccccccccccccccccccccc");
+    console.log(e);
+
+    let index = e.currentTarget.dataset.id,
+      categoryOrder = e.currentTarget.dataset.item;
+    var ordersText = "";
+    //for (var i = 0; i < this.data.summaryVendorOrderItems[index].CategoryOrders.length; i++) {
+    //  ordersText += "种类：" + this.data.summaryVendorOrderItems[index].CategoryOrders[i].CategoryName + "\r\n";
+    for (var j = 0; j < categoryOrder.StoreOrders.length; j++) {
+      ordersText += categoryOrder.StoreOrders[j].StoreName + "： "// + "\r\n";
+      for (var m = 0; m < categoryOrder.StoreOrders[j].OrderDetails.length; m++) {
+        ordersText += categoryOrder.StoreOrders[j].OrderDetails[m].ProductName + //"\t" +
+          categoryOrder.StoreOrders[j].OrderDetails[m].ProductCount + //"\t" +
+          categoryOrder.StoreOrders[j].OrderDetails[m].ProductUnit + ", " 
+          //"单价：" + this.data.summaryVendorOrderItems[index].CategoryOrders[i].StoreOrders[j].OrderDetails[m].ProductPrice + "\t" +
+          //"合计：" + this.data.summaryVendorOrderItems[index].CategoryOrders[i].StoreOrders[j].OrderDetails[m].ProductAmount + 
+          //+ "\r\n";
+      }
+      ordersText = ordersText.substr(0, ordersText.length - 2)
+      ordersText += "\r\n";
+    }
+    //}
 
     this.setData({
       showModal: true,
@@ -305,11 +349,14 @@ Page( {
           arrVendors.push(res.data.data[i].VendorName);
           arrVendorIDs.push(res.data.data[i].VendorID);
         }
+        console.log("arrVendors")
         console.log(arrVendors)
+        console.log(arrVendorIDs)
         that.setData({
           vendors: arrVendors,
           vendorIDs: arrVendorIDs
         })
+        that.getSummaryOrdersByVendor();
       }
     });
   },
@@ -335,7 +382,8 @@ Page( {
 
     var myDate = new Date();
     this.setData({
-      startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + (myDate.getDate()-1),
+      startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + 
+      (myDate.getHours() < 12 ? (myDate.getDate() - 1) : myDate.getDate()),
       startTime: '12:00',
       stopDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
       stopTime: myDate.getHours() + ':' + (myDate.getMinutes()+2)
@@ -343,7 +391,7 @@ Page( {
     if (this.data.curMenuID==2){
       this.getSummaryOrdersByStore();
     }
-    if (this.data.curMenuID == 1) {
+    if (this.data.curMenuID == 1 && this.data.vendorIDs.length > 0) {
       this.getSummaryOrdersByVendor();
     }
    
