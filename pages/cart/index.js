@@ -6,9 +6,21 @@ Page( {
     tipWords: '购物车空空如也',
     cartItems: [],
     purchaseButtonDisabled: false,
-    access_token: null   
+    access_token: null,
+    showLoading: false   
   },
 
+  showLoading: function () {
+    this.setData({
+      showLoading: true
+    })
+  },
+  cancelLoading: function () {
+    this.setData({
+      showLoading: false
+    })
+  },
+  
   onLoad: function () {
 
     var that = this
@@ -45,7 +57,9 @@ Page( {
   },
 
   placeOrder: function (e) {
+
     var that = this
+    that.showLoading();
     var purchaseItemList = {};
 
     for (var i = 0; i < app.globalData.purchaseItems.length; i++) {
@@ -71,7 +85,7 @@ Page( {
         that.setData({
           purchaseButtonDisabled: true
         });
-
+        that.cancelLoading();
         var purchaseLines="";
 
         for (var i = 0; i < res.data.data.PurchaseItems.length; i++) {
@@ -109,6 +123,13 @@ Page( {
           }
 
         })
+      },
+      fail: function (err) {
+        that.setData({
+          purchaseButtonDisabled: false
+        });
+        that.cancelLoading();
+        console.log('request fail ', err);
       }
     })
 

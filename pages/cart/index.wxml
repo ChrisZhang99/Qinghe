@@ -1,4 +1,7 @@
 <form bind:submit="placeOrder" report-submit="true">
+<view >
+    <loading wx:if="{{showLoading}}">下单中...</loading>
+</view>
 <view class="container">
   <view wx:if="{{cartItems}}">
       <block wx:for="{{cartItems}}">
