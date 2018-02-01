@@ -36,7 +36,8 @@ Page( {
     startTime: '12:00',
     stopDate: '2016-11-08',
     stopTime: '12:00',
-    sumVendorOrders: 0
+    sumVendorOrders: 0,
+    sumStoreOrders: 0
   },
 
   bindStorePickerChange: function (e) {
@@ -70,8 +71,13 @@ Page( {
       },
       success: function (res) {
         console.log(res)
+        var sumStoreOrders = 0;
+        for (var i = 0; i < res.data.data.length; i++) {
+          sumStoreOrders += res.data.data[i].StoreAmount;
+        }
         that.setData({
-          summaryStoreOrderItems: res.data.data
+          summaryStoreOrderItems: res.data.data,
+          sumStoreOrders: sumStoreOrders
         });
         console.log(that.data.summaryStoreOrderItems)
       }
@@ -107,18 +113,12 @@ Page( {
         console.log(res)
         var sumVendorOrders = 0;
         for (var i= 0; i < res.data.data.length; i++){
-          console.log(res.data.data[i].VendorAmount)
           sumVendorOrders += res.data.data[i].VendorAmount;
         }
-        console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnn")
-        console.log(sumVendorOrders)
         that.setData({
           summaryVendorOrderItems: res.data.data,
           sumVendorOrders: sumVendorOrders
         });
-        console.log("that.data.summaryVendorOrderItems")
-        console.log(that.data.summaryVendorOrderItems)
-        
       }
       , fail: function (res) {
         console.log(res)
@@ -381,12 +381,14 @@ Page( {
     })
 
     var myDate = new Date();
+    var yourDate=new Date();
+    yourDate.setMinutes(yourDate.getMinutes() + 2); 
     this.setData({
       startDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + 
       (myDate.getHours() < 12 ? (myDate.getDate() - 1) : myDate.getDate()),
       startTime: '12:00',
-      stopDate: myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate(),
-      stopTime: myDate.getHours() + ':' + (myDate.getMinutes()+2)
+      stopDate: yourDate.getFullYear() + '-' + (yourDate.getMonth() + 1) + '-' + yourDate.getDate(),
+      stopTime: yourDate.getHours() + ':' + yourDate.getMinutes()
     })
     if (this.data.curMenuID==2){
       this.getSummaryOrdersByStore();

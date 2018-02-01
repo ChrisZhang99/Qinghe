@@ -131,7 +131,7 @@
             </view>
           </block>
 
-          <view class='all_amount'>所有门店总计：</view>
+          <view class='all_amount'>所有门店总计：{{sumStoreOrders}}</view>
         </view>
 
         
