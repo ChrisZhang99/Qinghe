@@ -305,6 +305,14 @@ Page( {
   
   onLoad: function() {
     var that = this
+    that.setData({
+      leftMenus: [
+      {
+        id: 1,
+        icon: '../../images/iconfont-dingdan.png',
+        text: '我的订单'
+      }]
+    });
     //调用应用实例的方法获取全局数据
     app.getUserInfo( function( userInfo ) {
       //更新数据
