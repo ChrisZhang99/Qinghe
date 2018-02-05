@@ -24,13 +24,12 @@ Page( {
   onLoad: function () {
 
     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
+
+    that.setData({
+      userInfo: app.globalData.userInfo
     })
+    console.log("+++++++++++")
+    console.log(that.data.userInfo)
   },
 
   onShow: function () {
@@ -41,6 +40,7 @@ Page( {
       purchaseButtonDisabled: (app.globalData.purchaseItems.length == 0)
     }); 
 
+    /*
     wx.request({
       url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxfae3ca3c5e8a9bd9&secret=563116f55cb65e769a5b23b26b8270a2',
       method: 'get',
@@ -54,6 +54,7 @@ Page( {
         });
       }
     })
+    */
   },
 
   placeOrder: function (e) {

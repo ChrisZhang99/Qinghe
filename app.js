@@ -8,7 +8,7 @@ App({
     wx.setStorageSync('logs', logs)
 
     //login
-    this.getUserInfo();
+    //this.getUserInfo();
   },
   getUserInfo:function(cb){
     console.log("start to get user info")
@@ -54,8 +54,10 @@ App({
             success: function (res_user) {
               console.log("res_user.userInfo")
               that.globalData.userInfo.baseInfo = res_user.userInfo
-              //typeof cb == "function" && cb(that.globalData.userInfo)
-              //that.getUserRollInfo(that.globalData.userInfo.baseInfo.nickName)
+              
+              that.getUserRoleInfo(that.globalData.userInfo.baseInfo.nickName)
+
+              typeof cb == "function" && cb(that.globalData.userInfo)
             }
           })
         }
@@ -63,10 +65,10 @@ App({
     }
   },
 
-  getUserRollInfo: function (nickName) {
+  getUserRoleInfo: function (nickName) {
     var that = this;
     var url = that.globalData.hostUrl
-    url += "WXUserInfo/GetOpenID"
+    url += "Users/GetOne"
     wx.request({
       url: url,
       data: {
@@ -78,31 +80,30 @@ App({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        var obj = res_openid.data.data
-        that.globalData.userInfo.roll = res.data.data.Roll;
-        that.globalData.userInfo.store = res.data.data.Store
+        
         //obj = JSON.parse(obj)
+        console.log("-------------------------------------")
         console.log(res.data.data)
-        if (that.globalData.userInfo.roll==null){
+        if (res.data.data==null){
           wx.showModal({
             title: '提示',
             content: '请联系管理员注册登录账号',
             showCancel: false           
           })
-          wx.navigateBack({
-            delta: 1
-          }) 
+          //wx.navigateBack() 
+        }
+        else{
+          that.globalData.userInfo.role = res.data.data.Role.Name;
+          that.globalData.userInfo.store = res.data.data.Store.Name
         }
       },
       fail: function(err){
         wx.showModal({
           title: '提示',
-          content: '无法获取您的账号信息',
+          content: '无法获取您的账号信息请联系管理员',
           showCancel: false
         })
-        wx.navigateBack({
-          delta: 1
-        }) 
+        //wx.navigateBack() 
       }
     })
   },
@@ -115,7 +116,7 @@ App({
   },
   globalData:{
     hostUrl: 'https://www.snowcrane123.com/',
-    userInfo:{baseInfo:null, openid:null, session_key:null, roll:null, store:null},
+    userInfo:{baseInfo:null, openid:null, session_key:null, role:null, store:null},
     purchaseItems:[]
   }
 })

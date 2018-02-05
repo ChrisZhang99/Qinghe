@@ -306,21 +306,32 @@ Page( {
   onLoad: function() {
     var that = this
     that.setData({
-      leftMenus: [
-      {
-        id: 1,
-        icon: '../../images/iconfont-dingdan.png',
-        text: '我的订单'
-      }]
-    });
+      userInfo: app.globalData.userInfo
+    })
+    if (that.data.userInfo.role!="管理员"){
+      that.setData({
+        leftMenus: [
+          {
+            id: 1,
+            icon: '../../images/iconfont-dingdan.png',
+            text: '我的订单'
+          }]
+      });
+    }
+    
     //调用应用实例的方法获取全局数据
+    /*
     app.getUserInfo( function( userInfo ) {
       //更新数据
       that.setData( {
         userInfo: userInfo
       })
     })
-
+    */
+    
+    wx.setNavigationBarTitle({
+      title: that.data.userInfo.store
+    })
     wx.request({
       url: 'https://www.snowcrane123.com/stores/all',
       method: 'GET',
