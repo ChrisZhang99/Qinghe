@@ -103,7 +103,6 @@ Page({
 
     },
 
-    //事件处理函数
     numberIput: function (e) {
       this.setData({
         productNumber: e.detail.value
@@ -150,7 +149,6 @@ Page({
 
         var that = this
         wx.request({
-          //url: 'http://huanqiuxiaozhen.com/wemall/goodstype/typebrandList',
           url: 'https://www.snowcrane123.com/products/getbycategoryid/' + id,
           method: 'GET',
           data: {},
