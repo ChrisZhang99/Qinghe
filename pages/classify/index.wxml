@@ -1,3 +1,6 @@
+<view >
+    <loading wx:if="{{showLoading}}">加载中...</loading>
+</view>
 <view class="container">
   <view class="nav_left">
     <block wx:for="{{navLeftItems}}">

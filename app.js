@@ -1,7 +1,6 @@
 //app.js
 App({  
   onLaunch: function () {
-    console.log('App Launch')
     //调用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -11,14 +10,11 @@ App({
     //this.getUserInfo();
   },
   getUserInfo:function(cb){
-    console.log("start to get user info")
-    console.log(this.globalData.userInfo)
     var that = this
     if(this.globalData.userInfo.baseInfo){
       typeof cb == "function" && cb(this.globalData.userInfo)
     }else{
       //调用登录接口
-      console.log("get open id")
       wx.login({
         success: function (res) {
           //var appInstance = getApp()
@@ -52,7 +48,6 @@ App({
           wx.getUserInfo({
 
             success: function (res_user) {
-              console.log("res_user.userInfo")
               that.globalData.userInfo.baseInfo = res_user.userInfo
               
               that.getUserRoleInfo(that.globalData.userInfo.baseInfo.nickName)
@@ -82,8 +77,6 @@ App({
       success: function (res) {
         
         //obj = JSON.parse(obj)
-        console.log("-------------------------------------")
-        console.log(res.data.data)
         if (res.data.data==null){
           wx.showModal({
             title: '提示',
@@ -109,10 +102,10 @@ App({
   },
 
   onShow: function () {
-    console.log('App Show')
+
   },
   onHide: function () {
-    console.log('App Hide')
+
   },
   globalData:{
     hostUrl: 'https://www.snowcrane123.com/',

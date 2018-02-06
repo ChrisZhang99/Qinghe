@@ -10,7 +10,19 @@ Page({
         curProductID: 1,
         curProductIndex: 0,
         curProductName: null,
-        productNumber: 0
+        productNumber: 0,
+        showLoading: false
+    },
+
+    showLoading: function () {
+      this.setData({
+        showLoading: true
+      })
+    },
+    cancelLoading: function () {
+      this.setData({
+        showLoading: false
+      })
     },
 
     getProductsForCurrentCategory: function () {
@@ -78,6 +90,7 @@ Page({
 
     onShow: function () {
       var that = this
+      that.showLoading();
       wx.request({
         url: 'https://www.snowcrane123.com/categories/all',
         method: 'GET',
@@ -100,7 +113,11 @@ Page({
               'Accept': 'application/json'
             },
             success: function (res) {
-              that.setProductItems(res);              
+              that.setProductItems(res);        
+              that.cancelLoading();      
+            },
+            fail: function (err) {
+              that.cancelLoading();
             }
           })
         }
@@ -153,6 +170,7 @@ Page({
         })
 
         var that = this
+        that.showLoading();
         wx.request({
           url: 'https://www.snowcrane123.com/products/getbycategoryid/' + id,
           method: 'GET',
@@ -161,7 +179,11 @@ Page({
             'Accept': 'application/json'
           },
           success: function (res) {
-            that.setProductItems(res);            
+            that.setProductItems(res);        
+            that.cancelLoading();    
+          },
+          fail: function (err) {
+            that.cancelLoading();
           }
         })		    
     },
@@ -170,8 +192,7 @@ Page({
     let id = e.currentTarget.dataset.id,
       name = e.currentTarget.dataset.name,
     index = parseInt(e.currentTarget.dataset.index);
-    console.log(e);
-    console.log(index);
+
     this.setData({
       curProductID: id,
       curProductName: name,

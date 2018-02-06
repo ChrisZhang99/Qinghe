@@ -37,7 +37,19 @@ Page( {
     stopDate: '2016-11-08',
     stopTime: '12:00',
     sumVendorOrders: 0,
-    sumStoreOrders: 0
+    sumStoreOrders: 0,
+    showLoading: false
+  },
+
+  showLoading: function () {
+    this.setData({
+      showLoading: true
+    })
+  },
+  cancelLoading: function () {
+    this.setData({
+      showLoading: false
+    })
   },
 
   bindStorePickerChange: function (e) {
@@ -56,7 +68,7 @@ Page( {
 
   getSummaryOrdersByStore: function () {
     var that = this
-
+    that.showLoading();
     var url = app.globalData.hostUrl
     var startTime = this.data.startDate + " " + this.data.startTime;
     var stopTime = this.data.stopDate + " " + this.data.stopTime;
@@ -70,7 +82,6 @@ Page( {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log(res)
         var sumStoreOrders = 0;
         for (var i = 0; i < res.data.data.length; i++) {
           sumStoreOrders += res.data.data[i].StoreAmount;
@@ -79,28 +90,23 @@ Page( {
           summaryStoreOrderItems: res.data.data,
           sumStoreOrders: sumStoreOrders
         });
+        that.cancelLoading();
         console.log(that.data.summaryStoreOrderItems)
-      }
-      , fail: function (res) {
-        console.log(res)
       },
       complete: function (res) {
-        console.log(res)
+        that.cancelLoading();
       }
     })
   },
 
   getSummaryOrdersByVendor: function () {
     var that = this
-
+    that.showLoading();
     var url = app.globalData.hostUrl
     var startTime = this.data.startDate + " " + this.data.startTime;
     var stopTime = this.data.stopDate + " " + this.data.stopTime;
     var vendorID = that.data.vendorIDs[that.data.vendorIndex];
-    console.log("hhhhhhhhhhhh")
-    console.log(startTime)
-    console.log(stopTime)
-    console.log(that.data.vendorIDs)
+
     wx.request({
       url: url + 'PurchaseOrders/GetSummaryByVendorAndDate',
       method: 'POST',
@@ -110,7 +116,6 @@ Page( {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
-        console.log(res)
         var sumVendorOrders = 0;
         for (var i= 0; i < res.data.data.length; i++){
           sumVendorOrders += res.data.data[i].VendorAmount;
@@ -119,19 +124,15 @@ Page( {
           summaryVendorOrderItems: res.data.data,
           sumVendorOrders: sumVendorOrders
         });
-      }
-      , fail: function (res) {
-        console.log(res)
+        that.cancelLoading();
       },
       complete: function (res) {
-        console.log(res)
+        that.cancelLoading();
       }
     })
   },
 
   generateTextByStore: function (e) {
-    console.log("eeeeeee");
-    console.log(e);
     let index = e.currentTarget.dataset.id;
     var ordersText = "开始时间：" + this.data.startDate + " " + this.data.startTime + "\r\n" + "停止时间：" + this.data.stopDate + " " + this.data.stopTime + "\r\n"
       + "门店：" + this.data.summaryStoreOrderItems[index].StoreName + "\r\n";
@@ -156,9 +157,6 @@ Page( {
   },
 
   generateTextByCategory: function (e) {
-    console.log("ccccccccccccccccccccccccccccccccccccc");
-    console.log(e);
-
     let index = e.currentTarget.dataset.id,
       categoryOrder = e.currentTarget.dataset.item;
     var ordersText = "";
@@ -186,9 +184,6 @@ Page( {
   },
 
   generateTextByVendor: function (e) {
-    console.log("vvvvvvvv");
-    console.log(e);
-    
     let index = e.currentTarget.dataset.id;
     console.log(this.data.summaryVendorOrderItems[index]);
     var ordersText = "开始时间：" + this.data.startDate + " " + this.data.startTime + "\r\n" + "停止时间：" + this.data.stopDate + " " + this.data.stopTime + "\r\n"
@@ -276,12 +271,12 @@ Page( {
     wx.setClipboardData({
       data: that.data.ordersInText,
       success() {
-        console.log('copy success')
+
       }
     })
     wx.getClipboardData({
       success(res) {
-        console.log(res.data)
+
       }
     })
   },
@@ -289,7 +284,6 @@ Page( {
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
     }
     return {
       title: '订单',
@@ -317,6 +311,10 @@ Page( {
             text: '我的订单'
           }]
       });
+
+      wx.setNavigationBarTitle({
+        title: that.data.userInfo.store
+      })
     }
     
     //调用应用实例的方法获取全局数据
@@ -329,9 +327,6 @@ Page( {
     })
     */
     
-    wx.setNavigationBarTitle({
-      title: that.data.userInfo.store
-    })
     wx.request({
       url: 'https://www.snowcrane123.com/stores/all',
       method: 'GET',
@@ -368,9 +363,7 @@ Page( {
           arrVendors.push(res.data.data[i].VendorName);
           arrVendorIDs.push(res.data.data[i].VendorID);
         }
-        console.log("arrVendors")
-        console.log(arrVendors)
-        console.log(arrVendorIDs)
+
         that.setData({
           vendors: arrVendors,
           vendorIDs: arrVendorIDs
@@ -382,7 +375,7 @@ Page( {
 
   onShow: function () {
     var that = this
-    
+    /*
     var url = app.globalData.hostUrl
     wx.request({
       url: url + 'PurchaseOrders/GetByOwner',
@@ -398,7 +391,7 @@ Page( {
         });
       }
     })
-
+    */
     var myDate = new Date();
     var yourDate=new Date();
     yourDate.setMinutes(yourDate.getMinutes() + 2); 
@@ -409,13 +402,18 @@ Page( {
       stopDate: yourDate.getFullYear() + '-' + (yourDate.getMonth() + 1) + '-' + yourDate.getDate(),
       stopTime: yourDate.getHours() + ':' + yourDate.getMinutes()
     })
-    if (this.data.curMenuID==2){
-      this.getSummaryOrdersByStore();
+
+    if (that.data.userInfo.role != "管理员") {
+      this.getSummaryOrdersByOwner();
     }
-    if (this.data.curMenuID == 1 && this.data.vendorIDs.length > 0) {
-      this.getSummaryOrdersByVendor();
-    }
-   
+    else{
+      if (this.data.curMenuID == 2) {
+        this.getSummaryOrdersByStore();
+      }
+      if (this.data.curMenuID == 1 && this.data.vendorIDs.length > 0) {
+        this.getSummaryOrdersByVendor();
+      }
+    } 
     //this.getSummaryOrders();
   }, 
 
@@ -438,13 +436,13 @@ Page( {
         that.setData({
           summaryOrderItems: res.data.data
         });
-        console.log(res)
-      }
-      , fail: function (res) {
-        console.log(res)
+
+      }, 
+      fail: function (res) {
+
       },
       complete: function (res) {
-        console.log(res)
+
       }
     })
   },
@@ -461,6 +459,7 @@ Page( {
     var that = this
     if (this.data.curMenuID == 3)
     {
+      /*
       var url = app.globalData.hostUrl
       wx.request({
         url: url + 'PurchaseOrders/GetByOwner',
@@ -477,6 +476,8 @@ Page( {
 
         }
       })
+      */
+      this.getSummaryOrdersByOwner();
     }
     else if (this.data.curMenuID == 2) {
       this.getSummaryOrdersByStore();
@@ -486,6 +487,26 @@ Page( {
     }
   },
 
+  getSummaryOrdersByOwner: function(){
+    var that = this
+    that.showLoading();
+    var url = app.globalData.hostUrl
+    wx.request({
+      url: url + 'PurchaseOrders/GetByOwner',
+      method: 'POST',
+      data: { creator: this.data.userInfo.baseInfo.nickName },
+      dataType: "json",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        that.setData({
+          navRightItems: res.data.data
+        });
+        that.cancelLoading();
+      }
+    })
+  },
   //  点击时间组件确定事件  
   bindStartTimeChange: function (e) {
     this.setData({
@@ -501,7 +522,6 @@ Page( {
   },
   //  点击日期组件确定事件  
   bindStartDateChange: function (e) {
-    console.log(e.detail.value)
     this.setData({
       startDate: e.detail.value
     })
@@ -528,7 +548,6 @@ Page( {
   },
   //  点击日期组件确定事件  
   bindStopDateChange: function (e) {
-    console.log(e.detail.value)
     this.setData({
       stopDate: e.detail.value
     })

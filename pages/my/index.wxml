@@ -1,3 +1,6 @@
+<view >
+    <loading wx:if="{{showLoading}}">加载中...</loading>
+</view>
 <view class="container">
   <view class="nav_left">
     <block wx:for="{{leftMenus}}">
@@ -10,199 +13,88 @@
     </block>
   </view>
   <view class="nav_right">
-    <view wx:if="{{curMenuID == 3}}">
-      <block wx:for="{{navRightItems}}">
-        <view class="nav_right_items" data-index="{{index}}">
-          <view class="nav_right_items_inside">
-            {{item.CreatedTime}}
+    <block wx:if="{{userInfo.role == '管理员'}}">
+      <view wx:if="{{curMenuID == 3}}">
+        <block wx:for="{{navRightItems}}">
+          <view class="nav_right_items" data-index="{{index}}">
+            <view class="nav_right_items_inside">
+              {{item.CreatedTime}}
+            </view>
+            
+            <block wx:for="{{item.PurchaseOrderItems}}">  
+              <view class="nav_right_items_inside">      
+                  <view class='item_inside_product'>
+                    {{item.Product.Name}}
+                  </view>
+
+                  <view class='item_inside_product'>
+                    {{item.Count}}
+                  </view>
+                  <view class='item_inside_product'>
+                    {{item.Product.Unit}}
+                  </view>
+              </view>
+            </block>
+            
           </view>
-          
-          <block wx:for="{{item.PurchaseOrderItems}}">  
-            <view class="nav_right_items_inside">      
-                <view class='item_inside_product'>
-                  {{item.Product.Name}}
-                </view>
-
-                <view class='item_inside_product'>
-                  {{item.Count}}
-                </view>
-                <view class='item_inside_product'>
-                  {{item.Product.Unit}}
-                </view>
-            </view>
-          </block>
-          
-        </view>
-      </block>
-    </view>
-    <view wx:if="{{curMenuID == 2}}">
-      <view class="nav_right_date_items">     
-        <view class="section_date">  
-          <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStartDateChange">  
-            <view class="picker">  
-              开始时间: {{startDate}}  
-            </view>  
-          </picker>  
-        </view>  
-        <view class="section_time">  
-          <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">  
-            <view class="picker">  
-              {{startTime}}
-            </view>  
-          </picker>  
-        </view>   
-      </view>    
-      <view class="nav_right_date_items">     
-        <view class="section_date">  
-          <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStopDateChange">  
-            <view class="picker">  
-              停止时间: {{stopDate}}  
-            </view>  
-          </picker>  
-        </view>  
-        <view class="section_time">  
-          <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStopTimeChange">  
-            <view class="picker">  
-              {{stopTime}}
-            </view>  
-          </picker>  
-        </view>   
-      </view> 
-      <view class="nav_right_date_items">     
-        <view class="section_date">  
-          <picker bindchange="bindStorePickerChange" value="{{storeIndex}}" range="{{stores}}">  
-            <view class="picker">  
-              门店：{{stores[storeIndex]}}  
-            </view>  
-          </picker>    
-        </view>          
+        </block>
       </view>
-
-      <view wx:if="{{summaryStoreOrderItems.length > 0}}">
-        <view class="purchase_orders_container">        
-          <block wx:for="{{summaryStoreOrderItems}}">
-            <view class="summary_store_order_item" data-index="{{index}}">
-              <view class='store_name'>
-                <view class='label'>{{item.StoreName}}</view>
-                <view class='text_button'>
-                  <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByStore'>生成文本</button>
-                </view>
-              </view>
-              <block wx:for="{{item.CategoryOrders}}">
-                <view class="category_order_item" data-index="{{index}}">
-                  <view class='category_name'>{{item.CategoryName}}</view>
-                  <view class="headers">
-                    <view class="header_name">名称</view>
-                    <view class="header_count">数量</view>
-                    <view class="header_unit">单位</view>
-                    <view class="header_price">单价</view>
-                    <view class="header_amount">金额</view>
-                  </view>
-                  <block wx:for="{{item.OrderDetails}}">
-                    <view class="detail_order_item" data-index="{{index}}">
-
-                      <view class='column_name'>
-                        {{item.ProductName}}
-                      </view>
-
-                      <view class='column_count'>
-                        {{item.ProductCount}}
-                      </view>
-
-                      <view class='column_unit'>
-                        {{item.ProductUnit}}
-                      </view>
-
-                      <view class='column_price'>
-                        {{item.ProductPrice}}
-                      </view>
-
-                      <view class='column_amount'>
-                        {{item.ProductAmount}}
-                      </view>
-                    </view>
-                  </block>
-
-                  <view class='category_amount'>合计：{{item.CategoryAmount}}</view>
-                </view>
-              </block>
-
-              <view class='store_amount'>当前门店总计：{{item.StoreAmount}}</view>
-            </view>
-          </block>
-
-          <view class='all_amount'>所有门店总计：{{sumStoreOrders}}</view>
+      <view wx:if="{{curMenuID == 2}}">
+        <view class="nav_right_date_items">     
+          <view class="section_date">  
+            <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStartDateChange">  
+              <view class="picker">  
+                开始时间: {{startDate}}  
+              </view>  
+            </picker>  
+          </view>  
+          <view class="section_time">  
+            <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">  
+              <view class="picker">  
+                {{startTime}}
+              </view>  
+            </picker>  
+          </view>   
+        </view>    
+        <view class="nav_right_date_items">     
+          <view class="section_date">  
+            <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStopDateChange">  
+              <view class="picker">  
+                停止时间: {{stopDate}}  
+              </view>  
+            </picker>  
+          </view>  
+          <view class="section_time">  
+            <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStopTimeChange">  
+              <view class="picker">  
+                {{stopTime}}
+              </view>  
+            </picker>  
+          </view>   
+        </view> 
+        <view class="nav_right_date_items">     
+          <view class="section_date">  
+            <picker bindchange="bindStorePickerChange" value="{{storeIndex}}" range="{{stores}}">  
+              <view class="picker">  
+                门店：{{stores[storeIndex]}}  
+              </view>  
+            </picker>    
+          </view>          
         </view>
 
-        
-        <view class="generate_text">
-          <button class='generate_text_button' type='default' bindtap='generateAllStoreOrderText'>生成文本</button> 
-        </view>  
-      </view>
-    </view>
-    <view wx:if="{{curMenuID == 1}}">
-      <view class="nav_right_date_items">     
-        <view class="section_date">  
-          <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStartDateChange">  
-            <view class="picker">  
-              开始时间: {{startDate}}  
-            </view>  
-          </picker>  
-        </view>  
-        <view class="section_time">  
-          <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">  
-            <view class="picker">  
-              {{startTime}}
-            </view>  
-          </picker>  
-        </view>   
-      </view>    
-      <view class="nav_right_date_items">     
-        <view class="section_date">  
-          <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStopDateChange">  
-            <view class="picker">  
-              停止时间: {{stopDate}}  
-            </view>  
-          </picker>  
-        </view>  
-        <view class="section_time">  
-          <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStopTimeChange">  
-            <view class="picker">  
-              {{stopTime}}
-            </view>  
-          </picker>  
-        </view>   
-      </view> 
-      <view class="nav_right_date_items">     
-        <view class="section_date">  
-          <picker bindchange="bindVendorPickerChange" value="{{vendorIndex}}" range="{{vendors}}">  
-            <view class="picker">  
-              供货商：{{vendors[vendorIndex]}}  
-            </view>  
-          </picker>    
-        </view>          
-      </view>
-
-      <view wx:if="{{summaryVendorOrderItems.length > 0}}">
-        <view class="purchase_orders_container">        
-          <block wx:for="{{summaryVendorOrderItems}}">
-            <view class="summary_store_order_item" data-index="{{index}}">
-              <view class='store_name'>
-                <view class='label'>{{item.VendorName}}</view>
-                <view class='text_button'>
-                  <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByVendor'>生成文本</button>
-                </view>
-              </view>
-              <block wx:for="{{item.CategoryOrders}}">
-                <view class="category_order_item" data-index="{{index}}">
-
-                  <view class='category_name'>{{item.CategoryName}}</view>
-                  <view class='generate_text_view'>
-                    <button class='gen_text_button_new' data-id="{{index}}" type='default' data-item="{{item}}" bindtap='generateTextByCategory'>生成文本</button>
+        <view wx:if="{{summaryStoreOrderItems.length > 0}}">
+          <view class="purchase_orders_container">        
+            <block wx:for="{{summaryStoreOrderItems}}">
+              <view class="summary_store_order_item" data-index="{{index}}">
+                <view class='store_name'>
+                  <view class='label'>{{item.StoreName}}</view>
+                  <view class='text_button'>
+                    <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByStore'>生成文本</button>
                   </view>
-
-                  <block wx:for="{{item.StoreOrders}}">
-                    <view class='category_store_name'>{{item.StoreName}}</view>
+                </view>
+                <block wx:for="{{item.CategoryOrders}}">
+                  <view class="category_order_item" data-index="{{index}}">
+                    <view class='category_name'>{{item.CategoryName}}</view>
                     <view class="headers">
                       <view class="header_name">名称</view>
                       <view class="header_count">数量</view>
@@ -234,26 +126,164 @@
                         </view>
                       </view>
                     </block>
-                    <view class='category_amount'>合计：{{item.StoreAmount}}</view>
-                  </block>                 
 
-                  <view class='category_amount'>{{item.CategoryName}}合计：{{item.CategoryAmount}}</view>
-                </view>
-              </block>
+                    <view class='category_amount'>合计：{{item.CategoryAmount}}</view>
+                  </view>
+                </block>
 
-              <view class='store_amount'>当前供货商合计：{{item.VendorAmount}}</view>
-            </view>
-          </block>
+                <view class='store_amount'>当前门店总计：{{item.StoreAmount}}</view>
+              </view>
+            </block>
 
-          <view class='all_amount'>所有供货商总计：{{sumVendorOrders}}</view>
+            <view class='all_amount'>所有门店总计：{{sumStoreOrders}}</view>
+          </view>
+
+          
+          <view class="generate_text">
+            <button class='generate_text_button' type='default' bindtap='generateAllStoreOrderText'>生成文本</button> 
+          </view>  
+        </view>
+      </view>
+      <view wx:if="{{curMenuID == 1}}">
+        <view class="nav_right_date_items">     
+          <view class="section_date">  
+            <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStartDateChange">  
+              <view class="picker">  
+                开始时间: {{startDate}}  
+              </view>  
+            </picker>  
+          </view>  
+          <view class="section_time">  
+            <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">  
+              <view class="picker">  
+                {{startTime}}
+              </view>  
+            </picker>  
+          </view>   
+        </view>    
+        <view class="nav_right_date_items">     
+          <view class="section_date">  
+            <picker mode="date" value="{{date}}" start="2016-01-01" end="2056-01-01" bindchange="bindStopDateChange">  
+              <view class="picker">  
+                停止时间: {{stopDate}}  
+              </view>  
+            </picker>  
+          </view>  
+          <view class="section_time">  
+            <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindStopTimeChange">  
+              <view class="picker">  
+                {{stopTime}}
+              </view>  
+            </picker>  
+          </view>   
+        </view> 
+        <view class="nav_right_date_items">     
+          <view class="section_date">  
+            <picker bindchange="bindVendorPickerChange" value="{{vendorIndex}}" range="{{vendors}}">  
+              <view class="picker">  
+                供货商：{{vendors[vendorIndex]}}  
+              </view>  
+            </picker>    
+          </view>          
         </view>
 
-        
-        <view class="generate_text">
-          <button class='generate_text_button' type='default' bindtap='generateAllVendorOrderText'>生成文本</button> 
-        </view>  
+        <view wx:if="{{summaryVendorOrderItems.length > 0}}">
+          <view class="purchase_orders_container">        
+            <block wx:for="{{summaryVendorOrderItems}}">
+              <view class="summary_store_order_item" data-index="{{index}}">
+                <view class='store_name'>
+                  <view class='label'>{{item.VendorName}}</view>
+                  <view class='text_button'>
+                    <button class='gen_text_button' data-id="{{index}}" type='default' bindtap='generateTextByVendor'>生成文本</button>
+                  </view>
+                </view>
+                <block wx:for="{{item.CategoryOrders}}">
+                  <view class="category_order_item" data-index="{{index}}">
+
+                    <view class='category_name'>{{item.CategoryName}}</view>
+                    <view class='generate_text_view'>
+                      <button class='gen_text_button_new' data-id="{{index}}" type='default' data-item="{{item}}" bindtap='generateTextByCategory'>生成文本</button>
+                    </view>
+
+                    <block wx:for="{{item.StoreOrders}}">
+                      <view class='category_store_name'>{{item.StoreName}}</view>
+                      <view class="headers">
+                        <view class="header_name">名称</view>
+                        <view class="header_count">数量</view>
+                        <view class="header_unit">单位</view>
+                        <view class="header_price">单价</view>
+                        <view class="header_amount">金额</view>
+                      </view>
+                      <block wx:for="{{item.OrderDetails}}">
+                        <view class="detail_order_item" data-index="{{index}}">
+
+                          <view class='column_name'>
+                            {{item.ProductName}}
+                          </view>
+
+                          <view class='column_count'>
+                            {{item.ProductCount}}
+                          </view>
+
+                          <view class='column_unit'>
+                            {{item.ProductUnit}}
+                          </view>
+
+                          <view class='column_price'>
+                            {{item.ProductPrice}}
+                          </view>
+
+                          <view class='column_amount'>
+                            {{item.ProductAmount}}
+                          </view>
+                        </view>
+                      </block>
+                      <view class='category_amount'>合计：{{item.StoreAmount}}</view>
+                    </block>                 
+
+                    <view class='category_amount'>{{item.CategoryName}}合计：{{item.CategoryAmount}}</view>
+                  </view>
+                </block>
+
+                <view class='store_amount'>当前供货商合计：{{item.VendorAmount}}</view>
+              </view>
+            </block>
+
+            <view class='all_amount'>所有供货商总计：{{sumVendorOrders}}</view>
+          </view>
+
+          
+          <view class="generate_text">
+            <button class='generate_text_button' type='default' bindtap='generateAllVendorOrderText'>生成文本</button> 
+          </view>  
+        </view>
       </view>
-    </view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{navRightItems}}">
+          <view class="nav_right_items" data-index="{{index}}">
+            <view class="nav_right_items_inside">
+              {{item.CreatedTime}}
+            </view>
+            
+            <block wx:for="{{item.PurchaseOrderItems}}">  
+              <view class="nav_right_items_inside">      
+                  <view class='item_inside_product'>
+                    {{item.Product.Name}}
+                  </view>
+
+                  <view class='item_inside_product'>
+                    {{item.Count}}
+                  </view>
+                  <view class='item_inside_product'>
+                    {{item.Product.Unit}}
+                  </view>
+              </view>
+            </block>
+            
+          </view>
+        </block>
+    </block>
   </view>
 </view>
 

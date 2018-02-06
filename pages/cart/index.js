@@ -28,8 +28,6 @@ Page( {
     that.setData({
       userInfo: app.globalData.userInfo
     })
-    console.log("+++++++++++")
-    console.log(that.data.userInfo)
   },
 
   onShow: function () {
@@ -87,6 +85,7 @@ Page( {
           purchaseButtonDisabled: true
         });
         that.cancelLoading();
+        /*
         var purchaseLines="";
 
         for (var i = 0; i < res.data.data.PurchaseItems.length; i++) {
@@ -124,13 +123,13 @@ Page( {
           }
 
         })
+        */
       },
       fail: function (err) {
         that.setData({
           purchaseButtonDisabled: false
         });
         that.cancelLoading();
-        console.log('request fail ', err);
       }
     })
 
