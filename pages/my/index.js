@@ -86,6 +86,8 @@ Page( {
         for (var i = 0; i < res.data.data.length; i++) {
           sumStoreOrders += res.data.data[i].StoreAmount;
         }
+        sumStoreOrders = Math.round(sumStoreOrders*10)/10;
+
         that.setData({
           summaryStoreOrderItems: res.data.data,
           sumStoreOrders: sumStoreOrders
@@ -120,6 +122,7 @@ Page( {
         for (var i= 0; i < res.data.data.length; i++){
           sumVendorOrders += res.data.data[i].VendorAmount;
         }
+        sumVendorOrders = Math.round(sumVendorOrders * 10) / 10;
         that.setData({
           summaryVendorOrderItems: res.data.data,
           sumVendorOrders: sumVendorOrders
