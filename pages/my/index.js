@@ -108,7 +108,8 @@ Page( {
     var startTime = this.data.startDate + " " + this.data.startTime;
     var stopTime = this.data.stopDate + " " + this.data.stopTime;
     var vendorID = that.data.vendorIDs[that.data.vendorIndex];
-
+    //console.log("vendorID");
+    //console.log(vendorID);
     wx.request({
       url: url + 'PurchaseOrders/GetSummaryByVendorAndDate',
       method: 'POST',
@@ -119,6 +120,8 @@ Page( {
       },
       success: function (res) {
         var sumVendorOrders = 0;
+        console.log("res.data.data");
+        console.log(res.data.data);
         for (var i= 0; i < res.data.data.length; i++){
           sumVendorOrders += res.data.data[i].VendorAmount;
         }
@@ -176,7 +179,7 @@ Page( {
           //+ "\r\n";
       }
       ordersText = ordersText.substr(0, ordersText.length - 2)
-      ordersText += "\r\n";
+      ordersText += "\r\n\r\n";
     }
     //}
 
@@ -202,7 +205,7 @@ Page( {
             this.data.summaryVendorOrderItems[index].CategoryOrders[i].StoreOrders[j].OrderDetails[m].ProductUnit + "\t" +
             //"单价：" + this.data.summaryVendorOrderItems[index].CategoryOrders[i].StoreOrders[j].OrderDetails[m].ProductPrice + "\t" +
             //"合计：" + this.data.summaryVendorOrderItems[index].CategoryOrders[i].StoreOrders[j].OrderDetails[m].ProductAmount + 
-            "\r\n";
+            "\r\n\r\n";
         }
         
       }

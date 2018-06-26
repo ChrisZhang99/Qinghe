@@ -138,8 +138,8 @@ Page({
         {
           app.globalData.purchaseItems[i].productNumber = e.detail.value;
           if (app.globalData.purchaseItems[i].productNumber==null
-            || app.globalData.purchaseItems[i].productNumber==""
-            || app.globalData.purchaseItems[i].productNumber==0)
+            || app.globalData.purchaseItems[i].productNumber=="")
+            //|| app.globalData.purchaseItems[i].productNumber==0)
             {
               app.globalData.purchaseItems.splice(i, 1);
             }
@@ -148,7 +148,7 @@ Page({
         }
       }
 
-      if (!isExistingItem && e.detail.value > 0)
+      if (!isExistingItem && e.detail.value >= 0)
       {
         var purchaseItem = { categoryID: this.data.curCategoryID, productID: this.data.curProductID,
                             categoryName: this.data.curCategoryName, productName: this.data.curProductName,
