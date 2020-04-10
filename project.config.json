@@ -11,6 +11,8 @@
 	"libVersion": "1.6.0",
 	"appid": "wxfae3ca3c5e8a9bd9",
 	"projectname": "QingheBuy",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
