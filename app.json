@@ -6,7 +6,7 @@
     "pages/management/index"
   ],
   "window": {
-    "backgroundTextStyle": "white",
+    "backgroundTextStyle": "dark",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "清河",
     "navigationBarBackgroundColor": "#A52A2A",
